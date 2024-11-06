@@ -53,25 +53,31 @@ public class Employee {
 	
 	public void StockShelves() {
 		System.out.println(
-				"1. Walk through isles checking what products need stocking\r\n"
-				+ "2. Go to backroom\r\n"
-				+ "3. Find related stock\r\n"
-				+ "4. Bring stock to isle\r\n"
-				+ "5. Pull later expiration dates to front\r\n"
-				+ "6. Put back stock behind any existing items\r\n"
-				+ "7. Face up the product\r\n"
-				+ "8. Throw away trash\r\n"
-				+ "");
+				"1. Walk through isles checking what products need stocking\n"
+				+ "2. Go to backroom\n"
+				+ "3. Find related stock\n"
+				+ "   3a. If no stock found, report to manager\n"
+				+ "4. Bring stock to isle\n"
+				+ "5. Pull later expiration dates to front\n"
+				+ "6. Put back stock behind any existing items\n"
+				+ "   6a. If stock left over, return it to backroom\n"
+				+ "7. Face up the product\n"
+				+ "8. Throw away trash\n"
+				+ "   8a. If trash is full, use compactor or take it out");
 	}
 	
 	public void Clean() {
 		System.out.println(
-				"1. Go to an area to clean\r\n"
-				+ "2. Determine if the area needs cleaning\r\n"
-				+ "3. Throw away any trash in area\r\n"
-				+ "4. Sanitize the area\r\n"
-				+ "5. Wipe down area\r\n"
-				+ "6. Go to next area\r\n"
-				+ "");
+				"1. Go to an area to clean\n"
+				+ "   1a. Go to area requested by manager or customer\n"
+				+ "2. Determine if the area needs cleaning\n"
+				+ "   2a. If the area is regularly used, clean it anyway\n"
+				+ "3. Throw away any trash in area\n"
+				+ "   3a. Take trash to compactor if your bag is full\n"
+				+ "   3b. If compactor is full, run compactor\n"
+				+ "4. Sanitize the area\n"
+				+ "5. Wipe down area\n"
+				+ "   5a. Once per day, after close, run floor cleaner machine\n"
+				+ "6. Go to next area\n");
 	}
 }
