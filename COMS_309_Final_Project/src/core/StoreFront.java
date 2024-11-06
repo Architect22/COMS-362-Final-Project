@@ -13,7 +13,7 @@ public class StoreFront {
 			System.out.println("|________________________________________|");
 			
 			System.out.println("Login: (Admin)(Employee)(Customer)(Exit)");
-			System.out.print("Please enter your login type:");
+			System.out.print("Please enter your login type: ");
 			String loginType = in.nextLine().toLowerCase();
 			
 			if(loginType.equals("employee")) {

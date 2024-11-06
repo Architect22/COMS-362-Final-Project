@@ -1,5 +1,7 @@
 package core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Employee {
@@ -30,6 +32,7 @@ public class Employee {
 		else if(accessLevel.equals("employee")) {
 			System.out.println("| 1. Stocking                            |");
 			System.out.println("| 2. Cleaning                            |");
+			System.out.println("| 3. Sale                                |");
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String task = in.nextLine().toLowerCase();
@@ -43,6 +46,9 @@ public class Employee {
 		}
 		else if(task.equals("cleaning")) {
 			Clean();
+		}
+		else if (task.equals("sale")) {
+			handleSale();
 		}
 		else {
 			System.out.print("Nothing to do for this task.");
@@ -79,5 +85,54 @@ public class Employee {
 				+ "5. Wipe down area\n"
 				+ "   5a. Once per day, after close, run floor cleaner machine\n"
 				+ "6. Go to next area\n");
+	}
+	
+	public void handleSale() {
+		System.out.println("Enter name and price for each item, or enter \"done\" to calculate total.");
+		
+		List<String> names = new ArrayList<>();
+		List<Float> prices = new ArrayList<>();
+		float subtotal = 0f;
+		for (int i = 1; ; i++) {
+			System.out.printf("%d Name:  ", i);
+			String name = in.nextLine();
+			if ("done".equals(name))
+				break;
+			if ("cancel".equals(name))
+				return;
+			System.out.printf("%d Price: $", i);
+			float price = Float.parseFloat(in.nextLine());
+			subtotal += price;
+			
+			names.add(name);
+			prices.add(price);
+		}
+		
+		subtotal = 0.01f * Math.round(subtotal * 100f);
+		float tax = 0.01f * Math.round(subtotal * 7f);
+		while (true) {
+			// payment and payment rejection are simulated
+			System.out.printf("Subtotal: $%.2f%nTax: %.2f%nTotal: %.2f%nEnter account number: ", subtotal, tax, subtotal + tax);
+			if ("cancel".equals(in.nextLine()))
+				return;
+			if (Math.random() < 0.9)
+				break;
+			System.out.println("Transaction declined (insufficient funds)");
+		}
+		System.out.println("Thank you for shopping with us!");
+		System.out.println("TODO: update inventory");
+		
+		System.out.println();
+		System.out.println("Receipt:");
+		for (int i = 0; i < names.size(); i++) {
+			System.out.printf("%-19s %10s%n", names.get(i), String.format("$%.2f", prices.get(i)));
+		}
+		System.out.printf(
+			"------------------------------%n" +
+			"Subtotal            %10s%n" +
+			"Tax                 %10s%n" +
+			"Total               %10s%n" +
+			"Receipt ID: %d%n",
+			String.format("$%.2f", subtotal), String.format("$%.2f", tax), String.format("$%.2f", subtotal + tax), (int)(Math.random() * 1000000000));
 	}
 }
