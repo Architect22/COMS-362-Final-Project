@@ -1,5 +1,9 @@
-class InventoryManager {
-       private InventorySystem inventorySystem;
+package core;
+
+import java.util.Scanner;
+
+public class InventoryManager {
+    public final InventorySystem inventorySystem;
 
     public InventoryManager(InventorySystem inventorySystem) {
         this.inventorySystem = inventorySystem;

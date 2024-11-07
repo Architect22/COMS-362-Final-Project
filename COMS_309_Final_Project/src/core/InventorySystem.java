@@ -1,7 +1,10 @@
+package core;
+
 import java.util.*;
 
-class InventorySystem {
+public class InventorySystem {
     private Map<String, Integer> stockLevels = new HashMap<>();
+    private Map<String, Double>   stockPrices = new HashMap<>();
     private Map<String, Integer> reorderQuantities = new HashMap<>();
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
@@ -16,6 +19,9 @@ class InventorySystem {
 
     public int getStockLevel(String product) {
         return stockLevels.getOrDefault(product, 0);
+    }
+    public Map<String, Integer> getStockLevels() {
+        return stockLevels;
     }
 
     public void placeOrder(String product, int quantity) {
@@ -42,7 +48,10 @@ class InventorySystem {
     public void displayInventoryDashboard() {
         System.out.println("Inventory Dashboard:");
         for (String product : stockLevels.keySet()) {
-            System.out.println(product + " - Stock: " + stockLevels.get(product) + ", Reorder: " + reorderQuantities.getOrDefault(product, 0));
+            System.out.println(product
+                    + " - Stock: " + stockLevels.get(product)
+                    + ", Price: " + stockPrices.getOrDefault(product, 0.0)
+                    + ", Reorder: " + reorderQuantities.getOrDefault(product, 0));
         }
     }
 
@@ -51,5 +60,13 @@ class InventorySystem {
         int forecast = getSalesForecast(product);
         int reorder = reorderQuantities.getOrDefault(product, 0);
         return stock < forecast || stock < reorder;
+    }
+
+    public void updateStockPrice(String product, double newPrice) {
+        stockPrices.put(product, newPrice);
+    }
+
+    public Map<String, Double> getStockPrices() {
+        return stockPrices;
     }
 }
