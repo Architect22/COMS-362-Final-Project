@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
+
 public class Employee {
 	private Scanner in;
 	private static InventoryManager invManager;
 	private PriceManager priceManager;
+	private SelfCheckoutManager schMngr;
 
-	public Employee(InventoryManager invManager, PriceManager priceManager) {
+	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr) {
 		this.invManager = invManager;
+		this.schMngr = schMngr;
+
 		this.priceManager = priceManager;
 		in = new Scanner(System.in);
 		init();
@@ -125,6 +130,8 @@ public class Employee {
 		}
 	}
 
+
+
 	public void handleInventory() {
 		boolean inloop = true;
 		while (inloop) {
@@ -190,6 +197,69 @@ public class Employee {
 			}
 		}
 	}
+
+	public void handleSelfCheckoutAssistance() {
+		boolean inLoop = true;
+		while (inLoop) {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|      SELF-CHECKOUT ASSISTANCE         |");
+			System.out.println("| 1. Monitor Stations                   |");
+			System.out.println("| 2. Resolve Issue                      |");
+			System.out.println("| 3. Authorize Age-Restricted Item      |");
+			System.out.println("| 4. Check Scanner Functionality        |");
+			System.out.println("| 5. Route Customer to Another Station  |");
+			System.out.println("| 6. Call for Additional Support        |");
+			System.out.println("| 7. Routine Station Check              |");
+			System.out.println("| 8. Investigate Cash Discrepancy       |");
+			System.out.println("| 0. Exit                               |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String assistanceTask = in.nextLine().toLowerCase();
+	
+			switch (assistanceTask) {
+				case "1":
+				case "monitor stations":
+					schMngr.monitorStations();
+					break;
+				case "2":
+				case "resolve issue":
+					schMngr.resolveIssue();
+					break;
+				case "3":
+				case "authorize age-restricted item":
+					schMngr.authorizeAgeRestrictedItem();
+					break;
+				case "4":
+				case "check scanner functionality":
+					schMngr.checkScanner();
+					break;
+				case "5":
+				case "route customer to another station":
+					schMngr.routeCustomerToAnotherStation();
+					break;
+				case "6":
+				case "call for additional support":
+					schMngr.callForSupport();
+					break;
+				case "7":
+				case "routine station check":
+					schMngr.performRoutineCheck();
+					break;
+				case "8":
+				case "investigate cash discrepancy":
+					schMngr.investigateCashDiscrepancy();
+					break;
+				case "0":
+				case "exit":
+					inLoop = false;
+					System.out.println("Exiting Self-Checkout Assistance...");
+					break;
+				default:
+					System.out.println("Invalid option. Returning to assistance menu...");
+			}
+		}
+	}
+	
 
 
 	public void StockShelves() {

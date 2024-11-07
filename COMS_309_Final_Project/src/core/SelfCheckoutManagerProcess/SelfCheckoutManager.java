@@ -116,6 +116,33 @@ public class SelfCheckoutManager {
     public void handleMultipleIssues() {
         System.out.println("Multiple issues detected at different stations. Prioritizing assistance...");
         assistCustomer(stations.get(0)); // Assist the first issue as a basic example
-        // Call more staff if needed (not implemented in detail here)
+    }
+
+    public void resolveIssue() {
+        System.out.println("Resolving customer issue at self-checkout station");
+    }
+
+    public void authorizeAgeRestrictedItem() {
+        System.out.println("Authorizing purchase of age-restricted item");
+    }
+
+    public void checkScanner() {
+        System.out.println("Checking scanner functionality at self-checkout station");
+    }
+
+    public void routeCustomerToAnotherStation() {
+        System.out.println("Routing customer to an alternative self-checkout station");
+    }
+
+    public void callForSupport() {
+        System.out.println("Requesting additional support for self-checkout area");
+    }
+
+    public void performRoutineCheck() {
+        System.out.println("Performing end-of-day routine checks on all self-checkout stations");
+    }
+
+    public void investigateCashDiscrepancy() {
+        System.out.println("Investigating cash discrepancy at a self-checkout station");
     }
 }
