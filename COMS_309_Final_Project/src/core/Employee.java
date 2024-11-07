@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class Employee {
 	private Scanner in;
-	public Employee() {
+	private InventoryManager invManager
+	public Employee(InventoryManager invManager) {
 		in = new Scanner(System.in);
 		init();
 	}
@@ -21,7 +22,7 @@ public class Employee {
 		System.out.println("|----------------------------------------|");
 		System.out.println("|                  TASKS                 |");
 		if(accessLevel.equals("manager")) {
-			System.out.println("| 1. Inventory                           |");
+			System.out.println("| 1. inventory                           |");
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String task = in.nextLine().toLowerCase();
@@ -50,26 +51,61 @@ public class Employee {
 		else if (task.equals("sale")) {
 			handleSale();
 		}
+		else if (task.equals("inventory")) {
+			handleInventory();
+		}
 		else {
 			System.out.print("Nothing to do for this task.");
 		}
 		System.out.println();
 		System.out.println();
 	}
+
+public static void handleInventory() {
+        System.out.println("|----------------------------------------|");
+        System.out.println("|          INVENTORY MANAGEMENT         |");
+        System.out.println("| 1. View Inventory Dashboard           |");
+        System.out.println("| 2. Adjust Reorder Quantities          |");
+        System.out.println("| 3. Place an Order                     |");
+        System.out.println("| 4. Check Stock Discrepancies          |");
+        System.out.println("| 5. Manually Adjust Stock              |");
+        System.out.println("| 6. Request Inventory Audit            |");
+        System.out.println("|----------------------------------------|");
+        System.out.print("Enter task to complete: ");
+        String inventoryTask = in.nextLine().toLowerCase();
+
+        switch (inventoryTask) {
+            case "1":
+            case "view inventory dashboard":
+                viewInventoryDashboard();
+                break;
+            case "2":
+            case "adjust reorder quantities":
+                adjustReorderQuantities();
+                break;
+            case "3":
+            case "place an order":
+                placeOrder();
+                break;
+            case "4":
+            case "check stock discrepancies":
+                checkStockDiscrepancies();
+                break;
+            case "5":
+            case "manually adjust stock":
+                manuallyAdjustStock();
+                break;
+            case "6":
+            case "request inventory audit":
+                requestInventoryAudit();
+                break;
+            default:
+                System.out.println("Invalid option. Returning to task menu...");
+        }
+    }
 	
 	public void StockShelves() {
-		System.out.println(
-				"1. Walk through isles checking what products need stocking\n"
-				+ "2. Go to backroom\n"
-				+ "3. Find related stock\n"
-				+ "   3a. If no stock found, report to manager\n"
-				+ "4. Bring stock to isle\n"
-				+ "5. Pull later expiration dates to front\n"
-				+ "6. Put back stock behind any existing items\n"
-				+ "   6a. If stock left over, return it to backroom\n"
-				+ "7. Face up the product\n"
-				+ "8. Throw away trash\n"
-				+ "   8a. If trash is full, use compactor or take it out");
+	
 	}
 	
 	public void Clean() {
@@ -135,4 +171,5 @@ public class Employee {
 			"Receipt ID: %d%n",
 			String.format("$%.2f", subtotal), String.format("$%.2f", tax), String.format("$%.2f", subtotal + tax), (int)(Math.random() * 1000000000));
 	}
+
 }

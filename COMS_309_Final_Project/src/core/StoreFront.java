@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class StoreFront {
 
 	public static void main(String[] args) {
+		InventorySystem inventorySystem = new InventorySystem();
+        InventoryManager invManager = new InventoryManager(inventorySystem);
+
 		Scanner in = new Scanner(System.in);
 		while(true) {
 			System.out.println("|----------------------------------------|");
@@ -17,7 +20,7 @@ public class StoreFront {
 			String loginType = in.nextLine().toLowerCase();
 			
 			if(loginType.equals("employee")) {
-				Employee employee = new Employee();
+				Employee employee = new Employee(InventoryManager invManager);
 			}
 			if(loginType.equals("exit")) {
 				break;
