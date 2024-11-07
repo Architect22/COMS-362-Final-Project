@@ -6,13 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import core.CustomerServiceProcess.CustomerInquiry;
+import core.CustomerServiceProcess.CustomerSupportSystem;
+import core.CustomerServiceProcess.SupportRepresentative;
+import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
+
 public class Employee {
 	private Scanner in;
 	private InventoryManager invManager;
 	private PriceManager priceManager;
+	private SelfCheckoutManager schMngr;
+	private SupportRepresentative csRep;
+	private CustomerSupportSystem supportSystem;
+	private CustomerInquiry inq;
 
-	public Employee(InventoryManager invManager, PriceManager priceManager) {
+	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr, SupportRepresentative csRep, CustomerInquiry inq) {
 		this.invManager = invManager;
+		this.schMngr = schMngr;
+		this.csRep = csRep;
+		this.inq = inq;
+
 		this.priceManager = priceManager;
 		in = new Scanner(System.in);
 		init();
@@ -130,6 +143,8 @@ public class Employee {
 		}
 	}
 
+
+
 	public void handleInventory() {
 		boolean inloop = true;
 		while (inloop) {
@@ -192,6 +207,126 @@ public class Employee {
 				default:
 					inloop = false;
 					System.out.println("Invalid option. Returning to task menu...");
+			}
+		}
+	}
+
+	public void handleSelfCheckoutAssistance() {
+		boolean inLoop = true;
+		while (inLoop) {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|      SELF-CHECKOUT ASSISTANCE         |");
+			System.out.println("| 1. Monitor Stations                   |");
+			System.out.println("| 2. Resolve Issue                      |");
+			System.out.println("| 3. Authorize Age-Restricted Item      |");
+			System.out.println("| 4. Check Scanner Functionality        |");
+			System.out.println("| 5. Route Customer to Another Station  |");
+			System.out.println("| 6. Call for Additional Support        |");
+			System.out.println("| 7. Routine Station Check              |");
+			System.out.println("| 8. Investigate Cash Discrepancy       |");
+			System.out.println("| 0. Exit                               |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String assistanceTask = in.nextLine().toLowerCase();
+	
+			switch (assistanceTask) {
+				case "1":
+				case "monitor stations":
+					schMngr.monitorStations();
+					break;
+				case "2":
+				case "resolve issue":
+					schMngr.resolveIssue();
+					break;
+				case "3":
+				case "authorize age-restricted item":
+					schMngr.authorizeAgeRestrictedItem();
+					break;
+				case "4":
+				case "check scanner functionality":
+					schMngr.checkScanner();
+					break;
+				case "5":
+				case "route customer to another station":
+					schMngr.routeCustomerToAnotherStation();
+					break;
+				case "6":
+				case "call for additional support":
+					schMngr.callForSupport();
+					break;
+				case "7":
+				case "routine station check":
+					schMngr.performRoutineCheck();
+					break;
+				case "8":
+				case "investigate cash discrepancy":
+					schMngr.investigateCashDiscrepancy();
+					break;
+				case "0":
+				case "exit":
+					inLoop = false;
+					System.out.println("Exiting Self-Checkout Assistance...");
+					break;
+				default:
+					System.out.println("Invalid option. Returning to assistance menu...");
+			}
+		}
+	}
+	
+
+	public void handleCustomerSupport() {
+		boolean inLoop = true;
+		while (inLoop) {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|     CUSTOMER SUPPORT AVAILABILITY     |");
+			System.out.println("| 1. Greet Customer and Confirm Issue   |");
+			System.out.println("| 2. Provide Product Information        |");
+			System.out.println("| 3. Process Return Request             |");
+			System.out.println("| 4. Check Order Status                 |");
+			System.out.println("| 5. Escalate to Manager or Technician  |");
+			System.out.println("| 6. Offer Alternative Solutions        |");
+			System.out.println("| 7. Log Inquiry                         |");
+			System.out.println("| 0. Exit                               |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String supportTask = in.nextLine().toLowerCase();
+	
+			switch (supportTask) {
+				case "1":
+				case "greet customer and confirm issue":
+					csRep.greetCustomer(inq);
+					break;
+				case "2":
+				case "provide product information":
+					csRep.provideProductInformation();
+					break;
+				case "3":
+				case "process return request":
+					csRep.handleInquiry(inq);
+					break;
+				case "4":
+				case "check order status":
+					csRep.checkOrderStatus();
+					break;
+				case "5":
+				case "escalate to manager or technician":
+					csRep.escalateIssue(inq, supportTask);
+					break;
+				case "6":
+				case "offer alternative solutions":
+					csRep.offerAlternatives();
+					break;
+				case "7":
+				case "log inquiry":
+					csRep.logInquiry();
+					break;
+				case "0":
+				case "exit":
+					inLoop = false;
+					System.out.println("Exiting Customer Support...");
+					break;
+				default:
+					System.out.println("Invalid option. Returning to support menu...");
 			}
 		}
 	}
