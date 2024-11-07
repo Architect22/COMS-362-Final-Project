@@ -56,7 +56,6 @@ public class Employee {
 		ChooseEmployeeTask(taskNumber);
 	}
 
-
 	private void ChooseManagerTask(String task) {
 		switch (task) {
 			case "1":
@@ -73,7 +72,6 @@ public class Employee {
 		}
 		System.out.println();
 	}
-
 
 	private void ChooseEmployeeTask(String task) {
 		switch (task) {
@@ -198,34 +196,33 @@ public class Employee {
 		}
 	}
 
-
 	public void StockShelves() {
-	
+
 	}
-	
+
 	public void Clean() {
 		System.out.println(
 				"1. Go to an area to clean\n"
-				+ "   1a. Go to area requested by manager or customer\n"
-				+ "2. Determine if the area needs cleaning\n"
-				+ "   2a. If the area is regularly used, clean it anyway\n"
-				+ "3. Throw away any trash in area\n"
-				+ "   3a. Take trash to compactor if your bag is full\n"
-				+ "   3b. If compactor is full, run compactor\n"
-				+ "4. Sanitize the area\n"
-				+ "5. Wipe down area\n"
-				+ "   5a. Once per day, after close, run floor cleaner machine\n"
-				+ "6. Go to next area\n");
+						+ "   1a. Go to area requested by manager or customer\n"
+						+ "2. Determine if the area needs cleaning\n"
+						+ "   2a. If the area is regularly used, clean it anyway\n"
+						+ "3. Throw away any trash in area\n"
+						+ "   3a. Take trash to compactor if your bag is full\n"
+						+ "   3b. If compactor is full, run compactor\n"
+						+ "4. Sanitize the area\n"
+						+ "5. Wipe down area\n"
+						+ "   5a. Once per day, after close, run floor cleaner machine\n"
+						+ "6. Go to next area\n");
 	}
-	
+
 	public void handleSale() {
 		System.out.println("Enter name and price for each item, or enter \"done\" to calculate total.");
-		
+
 		List<String> names = new ArrayList<>();
 		List<Float> prices = new ArrayList<>();
 		float subtotal = 0f;
 		Map<String, Integer> items = new HashMap<>();
-o:		for (int i = 1; ; i++) {
+		o: for (int i = 1;; i++) {
 			String name;
 			float price;
 			while (true) {
@@ -236,7 +233,7 @@ o:		for (int i = 1; ; i++) {
 				if ("cancel".equals(name))
 					return;
 				price = invManager.inventorySystem.getPrice(name);
-				
+
 				if (Float.isNaN(price))
 					System.out.printf("Error: no price for \"%s\".%n", name);
 				else if (invManager.inventorySystem.getStockLevel(name) <= items.get(name))
@@ -245,17 +242,18 @@ o:		for (int i = 1; ; i++) {
 					break;
 			}
 			subtotal += price;
-			
+
 			names.add(name);
 			prices.add(price);
 			items.merge(name, 1, (a, b) -> a + b);
 		}
-		
+
 		subtotal = 0.01f * Math.round(subtotal * 100f);
 		float tax = 0.01f * Math.round(subtotal * 7f);
 		while (true) {
 			// payment and payment rejection are simulated
-			System.out.printf("Subtotal: $%.2f%nTax: %.2f%nTotal: %.2f%nEnter account number: ", subtotal, tax, subtotal + tax);
+			System.out.printf("Subtotal: $%.2f%nTax: %.2f%nTotal: %.2f%nEnter account number: ", subtotal, tax,
+					subtotal + tax);
 			if ("cancel".equals(in.nextLine()))
 				return;
 			if (Math.random() < 0.9)
@@ -263,20 +261,21 @@ o:		for (int i = 1; ; i++) {
 			System.out.println("Transaction declined (insufficient funds)");
 		}
 		for (Map.Entry<String, Integer> count : items.entrySet())
-			invManager.inventorySystem.updateStock(count.getKey(), invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
+			invManager.inventorySystem.updateStock(count.getKey(),
+					invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
 		System.out.println("Thank you for shopping with us!");
-		
+
 		System.out.println();
 		System.out.println("Receipt:");
 		Receipt.create(items, invManager.inventorySystem).print();
 	}
-	
+
 	public void handleReturn() {
 		System.out.print("Enter item to return: ");
 		String item = in.nextLine();
 		System.out.print("Enter receipt ID: ");
 		int rid = Integer.parseInt(in.nextLine());
-		
+
 		Receipt r = Receipt.lookup(rid);
 		if (r == null) {
 			System.out.println("Error: invalid receipt ID.");
