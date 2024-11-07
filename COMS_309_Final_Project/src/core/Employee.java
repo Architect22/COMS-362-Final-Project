@@ -48,6 +48,7 @@ public class Employee {
 		System.out.println("| 1. Stocking                            |");
 		System.out.println("| 2. Cleaning                            |");
 		System.out.println("| 3. Sale                                |");
+		System.out.println("| 4. Return                              |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -86,6 +87,10 @@ public class Employee {
 			case "3":
 			case "sale":
 				handleSale();
+				break;
+			case "4":
+			case "return":
+				handleReturn();
 				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
@@ -242,7 +247,26 @@ o:		for (int i = 1; ; i++) {
 		
 		System.out.println();
 		System.out.println("Receipt:");
-		Receipt.create(items).print(invManager.inventorySystem);
+		Receipt.create(items, invManager.inventorySystem).print();
 	}
-
+	
+	public void handleReturn() {
+		System.out.print("Enter item to return: ");
+		String item = in.nextLine();
+		System.out.print("Enter receipt ID: ");
+		int rid = Integer.parseInt(in.nextLine());
+		
+		Receipt r = Receipt.lookup(rid);
+		if (r == null) {
+			System.out.println("Error: invalid receipt ID.");
+			return;
+		}
+		float price = r.getPriceFor(item);
+		if (Float.isNaN(price)) {
+			System.out.println("Error: item is not on the given receipt.");
+			return;
+		}
+		r.remove(item);
+		System.out.printf("Refund applied: $%.2f%n", price * 1.07f);
+	}
 }
