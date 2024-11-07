@@ -9,7 +9,6 @@ public class CustomerSupportSystem {
 
     public CustomerSupportSystem() {
         operatingHours = new HashMap<>();
-        // Initialize operating hours for each day
     }
 
     public boolean checkAvailability() {
@@ -29,7 +28,6 @@ public class CustomerSupportSystem {
     }
 
     public void logInquiry(CustomerInquiry inquiry) {
-        // Logs inquiries to support system or calls error handler in case of issues
         System.out.println("Logging inquiry from " + inquiry.getCustomerName());
     }
 

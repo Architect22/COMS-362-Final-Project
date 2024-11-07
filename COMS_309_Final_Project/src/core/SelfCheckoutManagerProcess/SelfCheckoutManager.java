@@ -66,10 +66,8 @@ public class SelfCheckoutManager {
     }
 
     private boolean verifyCustomerID() {
-        // Simulate ID verification
         System.out.println("Enter ID verification result (1 for valid, 0 for invalid): ");
-        // Simulate input
-        int idVerification = 1; // Could change based on actual ID check
+        int idVerification = 1; 
         return idVerification == 1;
     }
 
@@ -115,7 +113,7 @@ public class SelfCheckoutManager {
 
     public void handleMultipleIssues() {
         System.out.println("Multiple issues detected at different stations. Prioritizing assistance...");
-        assistCustomer(stations.get(0)); // Assist the first issue as a basic example
+        assistCustomer(stations.get(0)); 
     }
 
     public void resolveIssue() {

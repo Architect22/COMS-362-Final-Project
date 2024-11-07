@@ -32,7 +32,6 @@ public class SupportRepresentative {
     }
 
     private void resolveIssue(CustomerInquiry inquiry) {
-        // Logic to resolve common issues
         System.out.println("Resolving issue: " + inquiry.getIssueDescription());
         inquiry.markResolved();
         supportSystem.logInquiry(inquiry);
@@ -44,7 +43,6 @@ public class SupportRepresentative {
 
     private void requestAdditionalInfo(CustomerInquiry inquiry) {
         System.out.println("Could you provide more details about your issue?");
-        // Assume more details are collected from customer input
     }
 
     public void logInquiry() {
