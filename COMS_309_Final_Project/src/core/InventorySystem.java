@@ -4,7 +4,7 @@ import java.util.*;
 
 public class InventorySystem {
     private Map<String, Integer> stockLevels = new HashMap<>();
-    private Map<String, Double>   stockPrices = new HashMap<>();
+    private Map<String, Float>  stockPrices = new HashMap<>();
     private Map<String, Integer> reorderQuantities = new HashMap<>();
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
@@ -50,7 +50,7 @@ public class InventorySystem {
         for (String product : stockLevels.keySet()) {
             System.out.println(product
                     + " - Stock: " + stockLevels.get(product)
-                    + ", Price: " + stockPrices.getOrDefault(product, 0.0)
+                    + ", Price: " + stockPrices.getOrDefault(product, 0f)
                     + ", Reorder: " + reorderQuantities.getOrDefault(product, 0));
         }
     }
@@ -62,11 +62,11 @@ public class InventorySystem {
         return stock < forecast || stock < reorder;
     }
 
-    public void updateStockPrice(String product, double newPrice) {
+    public void updateStockPrice(String product, float newPrice) {
         stockPrices.put(product, newPrice);
     }
 
-    public Map<String, Double> getStockPrices() {
+    public Map<String, Float> getStockPrices() {
         return stockPrices;
     }
 }

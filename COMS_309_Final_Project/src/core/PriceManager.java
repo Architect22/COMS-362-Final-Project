@@ -54,9 +54,9 @@ public class PriceManager {
     private void updatePrices(List<String> itemsToUpdate) {
         System.out.println("Enter new price for each item (ensure it meets minimum markup rules):");
         for (String item : itemsToUpdate) {
-            double currentPrice = inventorySystem.getStockPrices().getOrDefault(item, 0.0);
+            float currentPrice = inventorySystem.getStockPrices().getOrDefault(item, 0f);
             System.out.print("Current price of " + item + ": " + currentPrice + " -> ");
-            double newPrice = in.nextDouble();
+            float newPrice = in.nextFloat();
             in.nextLine();
 
 
