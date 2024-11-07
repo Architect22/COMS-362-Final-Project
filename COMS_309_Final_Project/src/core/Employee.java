@@ -1,7 +1,9 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Employee {
@@ -47,6 +49,7 @@ public class Employee {
 		System.out.println("| 1. Stocking                            |");
 		System.out.println("| 2. Cleaning                            |");
 		System.out.println("| 3. Sale                                |");
+		System.out.println("| 4. Return                              |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -85,6 +88,10 @@ public class Employee {
 			case "3":
 			case "sale":
 				handleSale();
+				break;
+			case "4":
+			case "return":
+				handleReturn();
 				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
@@ -217,19 +224,31 @@ public class Employee {
 		List<String> names = new ArrayList<>();
 		List<Float> prices = new ArrayList<>();
 		float subtotal = 0f;
-		for (int i = 1; ; i++) {
-			System.out.printf("%d Name:  ", i);
-			String name = in.nextLine();
-			if ("done".equals(name))
-				break;
-			if ("cancel".equals(name))
-				return;
-			System.out.printf("%d Price: $", i);
-			float price = Float.parseFloat(in.nextLine());
+		Map<String, Integer> items = new HashMap<>();
+o:		for (int i = 1; ; i++) {
+			String name;
+			float price;
+			while (true) {
+				System.out.printf("%d. ", i);
+				name = in.nextLine();
+				if ("done".equals(name))
+					break o;
+				if ("cancel".equals(name))
+					return;
+				price = invManager.inventorySystem.getPrice(name);
+				
+				if (Float.isNaN(price))
+					System.out.printf("Error: no price for \"%s\".%n", name);
+				else if (invManager.inventorySystem.getStockLevel(name) <= items.get(name))
+					System.out.printf("Error: \"%s\" is out of stock.%n", name);
+				else
+					break;
+			}
 			subtotal += price;
 			
 			names.add(name);
 			prices.add(price);
+			items.merge(name, 1, (a, b) -> a + b);
 		}
 		
 		subtotal = 0.01f * Math.round(subtotal * 100f);
@@ -243,21 +262,32 @@ public class Employee {
 				break;
 			System.out.println("Transaction declined (insufficient funds)");
 		}
+		for (Map.Entry<String, Integer> count : items.entrySet())
+			invManager.inventorySystem.updateStock(count.getKey(), invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
 		System.out.println("Thank you for shopping with us!");
-		System.out.println("TODO: update inventory");
 		
 		System.out.println();
 		System.out.println("Receipt:");
-		for (int i = 0; i < names.size(); i++) {
-			System.out.printf("%-19s %10s%n", names.get(i), String.format("$%.2f", prices.get(i)));
-		}
-		System.out.printf(
-			"------------------------------%n" +
-			"Subtotal            %10s%n" +
-			"Tax                 %10s%n" +
-			"Total               %10s%n" +
-			"Receipt ID: %d%n",
-			String.format("$%.2f", subtotal), String.format("$%.2f", tax), String.format("$%.2f", subtotal + tax), (int)(Math.random() * 1000000000));
+		Receipt.create(items, invManager.inventorySystem).print();
 	}
-
+	
+	public void handleReturn() {
+		System.out.print("Enter item to return: ");
+		String item = in.nextLine();
+		System.out.print("Enter receipt ID: ");
+		int rid = Integer.parseInt(in.nextLine());
+		
+		Receipt r = Receipt.lookup(rid);
+		if (r == null) {
+			System.out.println("Error: invalid receipt ID.");
+			return;
+		}
+		float price = r.getPriceFor(item);
+		if (Float.isNaN(price)) {
+			System.out.println("Error: item is not on the given receipt.");
+			return;
+		}
+		r.remove(item);
+		System.out.printf("Refund applied: $%.2f%n", price * 1.07f);
+	}
 }
