@@ -47,7 +47,21 @@ public class SupportRepresentative {
         // Assume more details are collected from customer input
     }
 
+    public void logInquiry() {
+        System.out.println("Logging your product");
+    }
+
     public void offerAlternatives() {
         System.out.println("The product is out of stock; would you like to try similar products?");
     }
+
+    public void provideProductInformation() {
+        System.out.println("Providing product information...");
+    }
+
+    public void checkOrderStatus() {
+        System.out.println("Order Status: Providing status of your order...");
+    }
+
+
 }

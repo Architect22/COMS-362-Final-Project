@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import core.CustomerServiceProcess.CustomerInquiry;
+import core.CustomerServiceProcess.CustomerSupportSystem;
+import core.CustomerServiceProcess.SupportRepresentative;
 import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
 
 public class Employee {
@@ -11,10 +14,15 @@ public class Employee {
 	private static InventoryManager invManager;
 	private PriceManager priceManager;
 	private SelfCheckoutManager schMngr;
+	private SupportRepresentative csRep;
+	private CustomerSupportSystem supportSystem;
+	private CustomerInquiry inq;
 
-	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr) {
+	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr, SupportRepresentative csRep, CustomerInquiry inq) {
 		this.invManager = invManager;
 		this.schMngr = schMngr;
+		this.csRep = csRep;
+		this.inq = inq;
 
 		this.priceManager = priceManager;
 		in = new Scanner(System.in);
@@ -260,6 +268,63 @@ public class Employee {
 		}
 	}
 	
+
+	public void handleCustomerSupport() {
+		boolean inLoop = true;
+		while (inLoop) {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|     CUSTOMER SUPPORT AVAILABILITY     |");
+			System.out.println("| 1. Greet Customer and Confirm Issue   |");
+			System.out.println("| 2. Provide Product Information        |");
+			System.out.println("| 3. Process Return Request             |");
+			System.out.println("| 4. Check Order Status                 |");
+			System.out.println("| 5. Escalate to Manager or Technician  |");
+			System.out.println("| 6. Offer Alternative Solutions        |");
+			System.out.println("| 7. Log Inquiry                         |");
+			System.out.println("| 0. Exit                               |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String supportTask = in.nextLine().toLowerCase();
+	
+			switch (supportTask) {
+				case "1":
+				case "greet customer and confirm issue":
+					csRep.greetCustomer(inq);
+					break;
+				case "2":
+				case "provide product information":
+					csRep.provideProductInformation();
+					break;
+				case "3":
+				case "process return request":
+					csRep.handleInquiry(inq);
+					break;
+				case "4":
+				case "check order status":
+					csRep.checkOrderStatus();
+					break;
+				case "5":
+				case "escalate to manager or technician":
+					csRep.escalateIssue(inq, supportTask);
+					break;
+				case "6":
+				case "offer alternative solutions":
+					csRep.offerAlternatives();
+					break;
+				case "7":
+				case "log inquiry":
+					csRep.logInquiry();
+					break;
+				case "0":
+				case "exit":
+					inLoop = false;
+					System.out.println("Exiting Customer Support...");
+					break;
+				default:
+					System.out.println("Invalid option. Returning to support menu...");
+			}
+		}
+	}
 
 
 	public void StockShelves() {

@@ -17,7 +17,6 @@ public class CustomerSupportSystem {
     }
 
     public boolean withinOperatingHours() {
-        // Logic to check if the current time is within operating hours
         return true;
     }
 
