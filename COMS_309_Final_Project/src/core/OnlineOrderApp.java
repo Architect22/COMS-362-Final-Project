@@ -9,13 +9,17 @@ public class OnlineOrderApp {
     private List<String> itemCatalog;
     private List<String> cartItems;
     private List<Float> cartPrices;
+    private boolean orderPlaced;
+    private boolean orderReady;
 
     public OnlineOrderApp() {
         in = new Scanner(System.in);
         itemCatalog = new ArrayList<>();
         cartItems = new ArrayList<>();
         cartPrices = new ArrayList<>();
-        
+        orderPlaced = false;
+        orderReady = false;
+
         initializeCatalog();
         startOrderingProcess();
     }
@@ -121,32 +125,51 @@ public class OnlineOrderApp {
         System.out.print("Please enter your preferred pickup time (e.g., 3:00 PM): ");
         String pickupTime = in.nextLine();
 
-        System.out.println("Order confirmed! Please arrive for curbside pickup at " + pickupTime);
-        printReceipt(subtotal, tax, total);
+        System.out.print("Please enter your payment information: ");
+        String cardPayment = in.nextLine();
+
+        System.out.println("Order confirmed! You will receive a notification when your order is ready for pickup at " + pickupTime);
+        orderPlaced = true;
+        simulateOrderPreparation();
     }
 
     private void cancelOrder() {
         System.out.println("Order canceled. Thank you for using the Online Ordering App.");
         cartItems.clear();
         cartPrices.clear();
+        orderPlaced = false;
     }
 
-    private void printReceipt(float subtotal, float tax, float total) {
-        System.out.println("\n--- Receipt ---");
-        for (int i = 0; i < cartItems.size(); i++) {
-            System.out.printf("%-20s $%.2f%n", cartItems.get(i), cartPrices.get(i));
+    private void simulateOrderPreparation() {
+        System.out.println("Preparing your order...");
+        try {
+            Thread.sleep(2000); // Simulate time taken to prepare order
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.printf(
-            "---------------------------%n" +
-            "Subtotal:         $%.2f%n" +
-            "Tax:              $%.2f%n" +
-            "Total:            $%.2f%n" +
-            "---------------------------%n" +
-            "Thank you for your order!%n", 
-            subtotal, tax, total
-        );
-        cartItems.clear();
-        cartPrices.clear();
+        orderReady = true;
+        System.out.println("Your order is ready for pickup!");
+        simulateCustomerArrival();
+    }
+
+    private void simulateCustomerArrival() {
+        System.out.print("Press 'Y' when you arrive at the pickup location: ");
+        String arrival = in.nextLine();
+        if (arrival.equalsIgnoreCase("Y")) {
+            deliverOrder();
+        } else {
+            System.out.println("Waiting for customer arrival...");
+        }
+    }
+
+    private void deliverOrder() {
+        System.out.println("A store associate is bringing your order to your vehicle...");
+        try {
+            Thread.sleep(1000); // Simulate time taken to deliver order
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Order delivered! Thank you for using curbside pickup.");
     }
 
     public static void main(String[] args) {
