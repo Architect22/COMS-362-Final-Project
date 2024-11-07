@@ -6,7 +6,12 @@ import java.util.Scanner;
 
 public class Employee {
 	private Scanner in;
-	public Employee() {
+	private static InventoryManager invManager;
+	private PriceManager priceManager;
+
+	public Employee(InventoryManager invManager, PriceManager priceManager) {
+		this.invManager = invManager;
+		this.priceManager = priceManager;
 		in = new Scanner(System.in);
 		init();
 	}
@@ -14,62 +19,162 @@ public class Employee {
 		System.out.println("Access levels: Manager, Employee");
 		System.out.print("Please enter your access level: ");
 		String accessLevel = in.nextLine().toLowerCase();
-		GenerateTaskList(accessLevel);
+
+		if (accessLevel.equals("manager")) {
+			GenerateManagerTaskList();
+		} else if (accessLevel.equals("employee")) {
+			GenerateEmployeeTaskList();
+		} else {
+			System.out.println("Invalid access level. Please enter either 'Manager' or 'Employee'.");
+		}
 	}
-	
-	private void GenerateTaskList(String accessLevel) {
+
+	private void GenerateManagerTaskList() {
 		System.out.println("|----------------------------------------|");
 		System.out.println("|                  TASKS                 |");
-		if(accessLevel.equals("manager")) {
-			System.out.println("| 1. Inventory                           |");
-			System.out.println("|----------------------------------------|");
-			System.out.print("Enter task to complete: ");
-			String task = in.nextLine().toLowerCase();
-			ChooseTask(task);
-			System.out.println();
-			System.out.println();
-		}
-		else if(accessLevel.equals("employee")) {
-			System.out.println("| 1. Stocking                            |");
-			System.out.println("| 2. Cleaning                            |");
-			System.out.println("| 3. Sale                                |");
-			System.out.println("|----------------------------------------|");
-			System.out.print("Enter task to complete: ");
-			String task = in.nextLine().toLowerCase();
-			ChooseTask(task);
-		}
+		System.out.println("| 1. Inventory                           |");
+		System.out.println("| 2. Update Price Tags                   |");
+		System.out.println("|----------------------------------------|");
+		System.out.print("Enter task number: ");
+		String taskNumber = in.nextLine().toLowerCase();
+		ChooseManagerTask(taskNumber);
 	}
-	
-	private void ChooseTask(String task) {
-		if(task.equals("stocking")) {
-			StockShelves();
-		}
-		else if(task.equals("cleaning")) {
-			Clean();
-		}
-		else if (task.equals("sale")) {
-			handleSale();
-		}
-		else {
-			System.out.print("Nothing to do for this task.");
+
+	private void GenerateEmployeeTaskList() {
+		System.out.println("|----------------------------------------|");
+		System.out.println("|                  TASKS                 |");
+		System.out.println("| 1. Stocking                            |");
+		System.out.println("| 2. Cleaning                            |");
+		System.out.println("| 3. Sale                                |");
+		System.out.println("|----------------------------------------|");
+		System.out.print("Enter task number: ");
+		String taskNumber = in.nextLine().toLowerCase();
+		ChooseEmployeeTask(taskNumber);
+	}
+
+
+	private void ChooseManagerTask(String task) {
+		switch (task) {
+			case "1":
+			case "inventory":
+				handleInventory();
+				break;
+			case "2":
+			case "update price tags":
+				handlePriceUpdate();
+				break;
+			default:
+				System.out.println("Invalid task number. Please try again.");
+				break;
 		}
 		System.out.println();
+	}
+
+
+	private void ChooseEmployeeTask(String task) {
+		switch (task) {
+			case "1":
+			case "stocking":
+				StockShelves();
+				break;
+			case "2":
+			case "cleaning":
+				Clean();
+				break;
+			case "3":
+			case "sale":
+				handleSale();
+				break;
+			default:
+				System.out.println("Invalid task number. Please try again.");
+				break;
+		}
 		System.out.println();
 	}
-	
+
+	public void handlePriceUpdate(){
+		System.out.println("|----------------------------------------|");
+		System.out.println("|          PRICE MANAGEMENT              |");
+		System.out.println("| 1. Price Update Process               |");
+		System.out.println("| 2. Walk Isles and Update Tags         |");
+		System.out.println("|----------------------------------------|");
+		System.out.print("Enter task to complete: ");
+		String inventoryTask = in.nextLine().toLowerCase();
+
+		switch (inventoryTask) {
+			case "1":
+			case "view inventory dashboard":
+				priceManager.priceUpdateProcess();
+				break;
+			case "2":
+			case "Walk Isles and Update Tags":
+				invManager.adjustReorderQuantities();
+				break;
+			default:
+				System.out.println("Invalid option. Returning to task menu...");
+		}
+	}
+
+	public void handleInventory() {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|          INVENTORY MANAGEMENT         |");
+			System.out.println("| 1. View Inventory Dashboard           |");
+			System.out.println("| 2. Adjust Reorder Quantities          |");
+			System.out.println("| 3. Place an Order                     |");
+			System.out.println("| 4. Check Stock Discrepancies          |");
+			System.out.println("| 5. Manually Adjust Stock              |");
+			System.out.println("| 6. Request Inventory Audit            |");
+			System.out.println("| 7. Handle Order Failure               |");
+			System.out.println("| 8. Reschedule Delivery                |");
+			System.out.println("| 9. Handle Damaged Product             |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String inventoryTask = in.nextLine().toLowerCase();
+
+			switch (inventoryTask) {
+				case "1":
+				case "view inventory dashboard":
+					invManager.viewInventoryDashboard();
+					break;
+				case "2":
+				case "adjust reorder quantities":
+					invManager.adjustReorderQuantities();
+					break;
+				case "3":
+				case "place an order":
+					invManager.placeOrder();
+					break;
+				case "4":
+				case "check stock discrepancies":
+					invManager.checkStockDiscrepancies();
+					break;
+				case "5":
+				case "manually adjust stock":
+					invManager.manuallyAdjustStock();
+					break;
+				case "6":
+				case "request inventory audit":
+					invManager.requestAudit();
+					break;
+				case "7":
+				case "handle order failure":
+					invManager.handleOrderFailure();
+					break;
+				case "8":
+				case "reschedule delivery":
+					invManager.rescheduleDelivery();
+					break;
+				case "9":
+				case "handle damaged product ":
+					invManager.handleDamagedProduct();
+					break;
+				default:
+					System.out.println("Invalid option. Returning to task menu...");
+			}
+		}
+
 	public void StockShelves() {
-		System.out.println(
-				"1. Walk through isles checking what products need stocking\n"
-				+ "2. Go to backroom\n"
-				+ "3. Find related stock\n"
-				+ "   3a. If no stock found, report to manager\n"
-				+ "4. Bring stock to isle\n"
-				+ "5. Pull later expiration dates to front\n"
-				+ "6. Put back stock behind any existing items\n"
-				+ "   6a. If stock left over, return it to backroom\n"
-				+ "7. Face up the product\n"
-				+ "8. Throw away trash\n"
-				+ "   8a. If trash is full, use compactor or take it out");
+	
 	}
 	
 	public void Clean() {
@@ -135,4 +240,5 @@ public class Employee {
 			"Receipt ID: %d%n",
 			String.format("$%.2f", subtotal), String.format("$%.2f", tax), String.format("$%.2f", subtotal + tax), (int)(Math.random() * 1000000000));
 	}
+
 }
