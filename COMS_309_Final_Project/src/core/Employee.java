@@ -239,7 +239,7 @@ o:		for (int i = 1; ; i++) {
 				
 				if (Float.isNaN(price))
 					System.out.printf("Error: no price for \"%s\".%n", name);
-				else if (invManager.inventorySystem.getStockLevel(name) == 0)
+				else if (invManager.inventorySystem.getStockLevel(name) <= items.get(name))
 					System.out.printf("Error: \"%s\" is out of stock.%n", name);
 				else
 					break;
@@ -262,6 +262,8 @@ o:		for (int i = 1; ; i++) {
 				break;
 			System.out.println("Transaction declined (insufficient funds)");
 		}
+		for (Map.Entry<String, Integer> count : items.entrySet())
+			invManager.inventorySystem.updateStock(count.getKey(), invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
 		System.out.println("Thank you for shopping with us!");
 		
 		System.out.println();
