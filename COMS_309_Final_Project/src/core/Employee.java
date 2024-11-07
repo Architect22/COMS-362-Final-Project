@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Employee {
 	private Scanner in;
-	private static InventoryManager invManager;
+	private InventoryManager invManager;
 	private PriceManager priceManager;
 
 	public Employee(InventoryManager invManager, PriceManager priceManager) {
