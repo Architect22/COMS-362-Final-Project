@@ -15,6 +15,7 @@ public class Employee {
 		in = new Scanner(System.in);
 		init();
 	}
+
 	public void init() {
 		System.out.println("Access levels: Manager, Employee");
 		System.out.print("Please enter your access level: ");
@@ -92,30 +93,41 @@ public class Employee {
 		System.out.println();
 	}
 
-	public void handlePriceUpdate(){
-		System.out.println("|----------------------------------------|");
-		System.out.println("|          PRICE MANAGEMENT              |");
-		System.out.println("| 1. Price Update Process               |");
-		System.out.println("| 2. Walk Isles and Update Tags         |");
-		System.out.println("|----------------------------------------|");
-		System.out.print("Enter task to complete: ");
-		String inventoryTask = in.nextLine().toLowerCase();
+	public void handlePriceUpdate() {
+		boolean inloop = true;
+		while (inloop) {
+			System.out.println("|----------------------------------------|");
+			System.out.println("|          PRICE MANAGEMENT              |");
+			System.out.println("| 1. Price Update Process               |");
+			System.out.println("| 2. Walk Isles and Update Tags         |");
+			System.out.println("| 0. Exit        |");
+			System.out.println("|----------------------------------------|");
+			System.out.print("Enter task to complete: ");
+			String inventoryTask = in.nextLine().toLowerCase();
 
-		switch (inventoryTask) {
-			case "1":
-			case "view inventory dashboard":
-				priceManager.priceUpdateProcess();
-				break;
-			case "2":
-			case "Walk Isles and Update Tags":
-				invManager.adjustReorderQuantities();
-				break;
-			default:
-				System.out.println("Invalid option. Returning to task menu...");
+			switch (inventoryTask) {
+				case "1":
+				case "view inventory dashboard":
+					priceManager.priceUpdateProcess();
+					break;
+				case "2":
+				case "Walk Isles and Update Tags":
+					invManager.adjustReorderQuantities();
+					break;
+				case "0":
+				case "exit":
+					inloop = false;
+					break;
+				default:
+					inloop = false;
+					System.out.println("Invalid option. Returning to task menu...");
+			}
 		}
 	}
 
 	public void handleInventory() {
+		boolean inloop = true;
+		while (inloop) {
 			System.out.println("|----------------------------------------|");
 			System.out.println("|          INVENTORY MANAGEMENT         |");
 			System.out.println("| 1. View Inventory Dashboard           |");
@@ -168,10 +180,17 @@ public class Employee {
 				case "handle damaged product ":
 					invManager.handleDamagedProduct();
 					break;
+				case "0":
+				case "exit":
+					inloop = false;
+					break;
 				default:
+					inloop = false;
 					System.out.println("Invalid option. Returning to task menu...");
 			}
 		}
+	}
+
 
 	public void StockShelves() {
 	
