@@ -65,6 +65,10 @@ public class InventorySystem {
     public void updateStockPrice(String product, float newPrice) {
         stockPrices.put(product, newPrice);
     }
+    
+    public float getPrice(String product) {
+    	return stockPrices.getOrDefault(product, Float.NaN);
+    }
 
     public Map<String, Float> getStockPrices() {
         return stockPrices;

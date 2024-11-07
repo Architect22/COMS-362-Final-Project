@@ -1,7 +1,9 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Employee {
@@ -198,19 +200,31 @@ public class Employee {
 		List<String> names = new ArrayList<>();
 		List<Float> prices = new ArrayList<>();
 		float subtotal = 0f;
-		for (int i = 1; ; i++) {
-			System.out.printf("%d Name:  ", i);
-			String name = in.nextLine();
-			if ("done".equals(name))
-				break;
-			if ("cancel".equals(name))
-				return;
-			System.out.printf("%d Price: $", i);
-			float price = Float.parseFloat(in.nextLine());
+		Map<String, Integer> items = new HashMap<>();
+o:		for (int i = 1; ; i++) {
+			String name;
+			float price;
+			while (true) {
+				System.out.printf("%d. ", i);
+				name = in.nextLine();
+				if ("done".equals(name))
+					break o;
+				if ("cancel".equals(name))
+					return;
+				price = invManager.inventorySystem.getPrice(name);
+				
+				if (Float.isNaN(price))
+					System.out.printf("Error: no price for \"%s\".%n", name);
+				else if (invManager.inventorySystem.getStockLevel(name) == 0)
+					System.out.printf("Error: \"%s\" is out of stock.%n", name);
+				else
+					break;
+			}
 			subtotal += price;
 			
 			names.add(name);
 			prices.add(price);
+			items.merge(name, 1, (a, b) -> a + b);
 		}
 		
 		subtotal = 0.01f * Math.round(subtotal * 100f);
@@ -225,20 +239,10 @@ public class Employee {
 			System.out.println("Transaction declined (insufficient funds)");
 		}
 		System.out.println("Thank you for shopping with us!");
-		System.out.println("TODO: update inventory");
 		
 		System.out.println();
 		System.out.println("Receipt:");
-		for (int i = 0; i < names.size(); i++) {
-			System.out.printf("%-19s %10s%n", names.get(i), String.format("$%.2f", prices.get(i)));
-		}
-		System.out.printf(
-			"------------------------------%n" +
-			"Subtotal            %10s%n" +
-			"Tax                 %10s%n" +
-			"Total               %10s%n" +
-			"Receipt ID: %d%n",
-			String.format("$%.2f", subtotal), String.format("$%.2f", tax), String.format("$%.2f", subtotal + tax), (int)(Math.random() * 1000000000));
+		Receipt.create(items).print(invManager.inventorySystem);
 	}
 
 }
