@@ -6,14 +6,7 @@ import java.util.Scanner;
 
 public class Task {
     private static final int width = 65;
-
     static ArrayList<String> taskSteps;
-
-    public static void main(String[] args) {
-        steps.add("Cleaning");
-        steps.add("Stocking");
-        generateTasklistUI(steps, "Tasks");
-    }
 
     public static void generateTasklistUI(ArrayList<String> steps, String taskGroupTitle) {
         taskSteps = steps;

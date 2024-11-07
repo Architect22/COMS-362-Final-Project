@@ -197,22 +197,37 @@ public class Employee {
 	}
 
 	public void StockShelves() {
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Walk through isles checking what products need stocking");
+		steps.add("Go to backroom");
+		steps.add("Find related stock");
+		steps.add("If no stock found, report to manager");
+		steps.add("Bring stock to isle");
+		steps.add("Pull later expiration dates to front");
+		steps.add("Put back stock behind any existing items");
+		steps.add("If stock left over, return it to backroom");
+		steps.add("Face up the product");
+		steps.add("Throw away trash");
+		steps.add("If trash is full, use compactor or take it out");
 
+		Task.generateTasklistUI(steps, "Stocking");
 	}
 
 	public void Clean() {
-		System.out.println(
-				"1. Go to an area to clean\n"
-						+ "   1a. Go to area requested by manager or customer\n"
-						+ "2. Determine if the area needs cleaning\n"
-						+ "   2a. If the area is regularly used, clean it anyway\n"
-						+ "3. Throw away any trash in area\n"
-						+ "   3a. Take trash to compactor if your bag is full\n"
-						+ "   3b. If compactor is full, run compactor\n"
-						+ "4. Sanitize the area\n"
-						+ "5. Wipe down area\n"
-						+ "   5a. Once per day, after close, run floor cleaner machine\n"
-						+ "6. Go to next area\n");
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Go to an area to clean");
+		steps.add("Go to area requested by manager or customer");
+		steps.add("Determine if the area needs cleaning");
+		steps.add("If the area is regularly used, clean it anyway");
+		steps.add("Throw away any trash in area");
+		steps.add("Take trash to compactor if your bag is full");
+		steps.add("If compactor is full, run compactor");
+		steps.add("Sanitize the area");
+		steps.add("Wipe down area");
+		steps.add("Once per day, after close, run floor cleaner machine");
+		steps.add("Go to next area");
+
+		Task.generateTasklistUI(steps, "Stocking");
 	}
 
 	public void handleSale() {
