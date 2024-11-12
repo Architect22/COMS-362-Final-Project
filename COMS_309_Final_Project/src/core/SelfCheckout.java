@@ -21,7 +21,7 @@ public class SelfCheckout {
         scannerIssue = false;
         issueResolved = true;
         available = true;
-        startCheckout();
+        // startCheckout();
     }
 
     private void startCheckout() {
@@ -70,7 +70,7 @@ public class SelfCheckout {
             System.out.println("Your cart is empty.");
             return;
         }
-        
+
         System.out.println("Items in your cart:");
         float subtotal = 0f;
         for (int i = 0; i < itemNames.size(); i++) {
@@ -85,7 +85,7 @@ public class SelfCheckout {
         for (float price : itemPrices) {
             subtotal += price;
         }
-        
+
         float tax = subtotal * 0.07f;
         float total = subtotal + tax;
         System.out.printf("Subtotal: $%.2f%nTax: $%.2f%nTotal: $%.2f%n", subtotal, tax, total);
@@ -113,14 +113,13 @@ public class SelfCheckout {
             System.out.printf("%-20s $%.2f%n", itemNames.get(i), itemPrices.get(i));
         }
         System.out.printf(
-            "---------------------------%n" +
-            "Subtotal:         $%.2f%n" +
-            "Tax:              $%.2f%n" +
-            "Total:            $%.2f%n" +
-            "---------------------------%n" +
-            "Thank you for shopping with us!%n", 
-            subtotal, tax, total
-        );
+                "---------------------------%n" +
+                        "Subtotal:         $%.2f%n" +
+                        "Tax:              $%.2f%n" +
+                        "Total:            $%.2f%n" +
+                        "---------------------------%n" +
+                        "Thank you for shopping with us!%n",
+                subtotal, tax, total);
         itemNames.clear();
         itemPrices.clear();
     }

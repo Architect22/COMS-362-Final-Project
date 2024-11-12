@@ -20,7 +20,8 @@ public class Employee {
 	private CustomerSupportSystem supportSystem;
 	private CustomerInquiry inq;
 
-	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr, SupportRepresentative csRep, CustomerInquiry inq) {
+	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr,
+			SupportRepresentative csRep, CustomerInquiry inq) {
 		this.invManager = invManager;
 		this.schMngr = schMngr;
 		this.csRep = csRep;
@@ -143,8 +144,6 @@ public class Employee {
 		}
 	}
 
-
-
 	public void handleInventory() {
 		boolean inloop = true;
 		while (inloop) {
@@ -228,7 +227,7 @@ public class Employee {
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String assistanceTask = in.nextLine().toLowerCase();
-	
+
 			switch (assistanceTask) {
 				case "1":
 				case "monitor stations":
@@ -272,7 +271,6 @@ public class Employee {
 			}
 		}
 	}
-	
 
 	public void handleCustomerSupport() {
 		boolean inLoop = true;
@@ -290,7 +288,7 @@ public class Employee {
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String supportTask = in.nextLine().toLowerCase();
-	
+
 			switch (supportTask) {
 				case "1":
 				case "greet customer and confirm issue":
@@ -344,8 +342,7 @@ public class Employee {
 		steps.add("Face up the product");
 		steps.add("Throw away trash");
 		steps.add("If trash is full, use compactor or take it out");
-
-		Task.generateTasklistUI(steps, "Stocking");
+		Task task = new Task("Stocking", TaskType.STOCK, steps);
 	}
 
 	public void Clean() {
@@ -362,7 +359,7 @@ public class Employee {
 		steps.add("Once per day, after close, run floor cleaner machine");
 		steps.add("Go to next area");
 
-		Task.generateTasklistUI(steps, "Stocking");
+		Task task = new CleanTask("Cleaning", TaskType.CLEAN, steps);
 	}
 
 	public void handleSale() {

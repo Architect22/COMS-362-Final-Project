@@ -6,9 +6,22 @@ import java.util.Scanner;
 
 public class Task {
     private static final int width = 65;
-    static ArrayList<String> taskSteps;
+    public String name;
+    public boolean isComplete;
+    public TaskType type;
+    public Task taskObject;
+    private ArrayList<String> taskSteps;
 
-    public static void generateTasklistUI(ArrayList<String> steps, String taskGroupTitle) {
+    public Task(String name, TaskType type, ArrayList<String> taskSteps) {
+        this.name = name;
+        this.type = type;
+        this.isComplete = false;
+        this.taskSteps = taskSteps;
+        this.taskObject = this;
+        generateTasklistUI(taskSteps, name);
+    }
+
+    public void generateTasklistUI(ArrayList<String> steps, String taskGroupTitle) {
         taskSteps = steps;
         int padding = (width - taskGroupTitle.length()) / 2;
         System.out.println("|--------------------------------------------------------------|");
@@ -30,7 +43,7 @@ public class Task {
         userInput();
     }
 
-    private static String addPadding(int amount) {
+    private String addPadding(int amount) {
         String text = "";
         for (int i = 0; i < amount; ++i) {
             text += " ";
@@ -38,7 +51,7 @@ public class Task {
         return text;
     }
 
-    private static void userInput() {
+    private void userInput() {
         boolean loop = true;
         Scanner in = new Scanner(System.in); // don't close otherwise loop scanner breaks in storefront class!
         while (loop) {
@@ -51,14 +64,18 @@ public class Task {
                         loop = false;
                         break;
                     default:
-                        System.out.println("Step Completed!");
+                        executeTask("test");
                         break;
                 }
+
             } else {
                 System.out.println("That is not a valid step!");
             }
 
         }
+    }
 
+    public void executeTask(String taskCode) {
+        System.out.println("Task Completed!");
     }
 }
