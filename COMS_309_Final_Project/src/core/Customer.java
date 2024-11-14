@@ -39,8 +39,6 @@ public class Customer {
                     System.out.println("Invalid choice. Please select 1, 2, or 3.");
             }
         }
-
-        in.close();
     }
 
     public static void main(String[] args) {
