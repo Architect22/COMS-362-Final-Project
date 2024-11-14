@@ -363,7 +363,7 @@ public class Employee {
 	}
 
 	public void handleSale() {
-		System.out.println("Enter name and price for each item, or enter \"done\" to calculate total.");
+		System.out.println("Enter name for each item, or enter \"done\" to calculate total.");
 
 		List<String> names = new ArrayList<>();
 		List<Float> prices = new ArrayList<>();
@@ -383,12 +383,15 @@ public class Employee {
 
 				if (Float.isNaN(price))
 					System.out.printf("Error: no price for \"%s\".%n", name);
-				else if (invManager.inventorySystem.getStockLevel(name) <= items.get(name))
-					System.out.printf("Error: \"%s\" is out of stock.%n", name);
-				else
-					break;
+//				else if (invManager.inventorySystem.getStockLevel(name) <= invManager.inventorySystem.getStockPrices().get(name))
+//					System.out.printf("Error: \"%s\" is out of stock.%n", name);
+//				else
+
+				subtotal += price;
+				break;
+
 			}
-			subtotal += price;
+
 
 			names.add(name);
 			prices.add(price);
