@@ -31,6 +31,9 @@ public class StoreFront {
 				Employee employee = new Employee(invManager, priceManager, selfCheckoutManager, supportRepresentative,
 						customerInquiry);
 			}
+			if (loginType.equals("customer")) {
+				Customer customer = new Customer();
+			}
 			if (loginType.equals("exit")) {
 				break;
 			}
