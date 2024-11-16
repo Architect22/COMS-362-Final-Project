@@ -11,6 +11,7 @@ public class Customer {
     }
 
     private void startCustomerSession() {
+        Utility.clearConsole();
         System.out.println("Welcome to the Grocery Store!");
 
         boolean isShopping = true;

@@ -44,6 +44,7 @@ public class Employee {
 		} else {
 			System.out.println("Invalid access level. Please enter either 'Manager' or 'Employee'.");
 		}
+
 	}
 
 	private void GenerateManagerTaskList() {
@@ -64,6 +65,9 @@ public class Employee {
 		System.out.println("| 2. Cleaning                            |");
 		System.out.println("| 3. Sale                                |");
 		System.out.println("| 4. Return                              |");
+		System.out.println("| 5. Self Checkout Assistant             |");
+		System.out.println("| 6. Customer Support                    |");
+		System.out.println("| 7. Switch Department                   |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -105,6 +109,18 @@ public class Employee {
 			case "return":
 				handleReturn();
 				break;
+			case "SelfCheckoutAssistant":
+			case "5":
+				handleSelfCheckoutAssistance();
+				break;
+			case "CustomerSupport":
+			case "6":
+				handleCustomerSupport();
+				break;
+			case "Switch Department":
+			case "7":
+				handleCustomerSupport();
+				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
 				break;
@@ -115,11 +131,10 @@ public class Employee {
 	public void handlePriceUpdate() {
 		boolean inloop = true;
 		while (inloop) {
-			System.out.println("|----------------------------------------|");
-			System.out.println("|          PRICE MANAGEMENT              |");
-			System.out.println("| 1. Price Update Process               |");
-			System.out.println("| 2. Walk Isles and Update Tags         |");
-			System.out.println("| 0. Exit        |");
+			Utility.createHeader(65, "Price Management");
+			System.out.println("| 1. Price Update Process                |");
+			System.out.println("| 2. Walk Isles and Update Tags          |");
+			System.out.println("| 0. Exit        						 |");
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String inventoryTask = in.nextLine().toLowerCase();
@@ -147,21 +162,20 @@ public class Employee {
 	public void handleInventory() {
 		boolean inloop = true;
 		while (inloop) {
-			System.out.println("|----------------------------------------|");
-			System.out.println("|          INVENTORY MANAGEMENT         |");
-			System.out.println("| 1. View Inventory Dashboard           |");
-			System.out.println("| 2. Adjust Reorder Quantities          |");
-			System.out.println("| 3. Place an Order                     |");
-			System.out.println("| 4. Check Stock Discrepancies          |");
-			System.out.println("| 5. Manually Adjust Stock              |");
-			System.out.println("| 6. Request Inventory Audit            |");
-			System.out.println("| 7. Handle Order Failure               |");
-			System.out.println("| 8. Reschedule Delivery                |");
-			System.out.println("| 9. Handle Damaged Product             |");
-			System.out.println("|----------------------------------------|");
+			Utility.createHeader(65, "Inventory Management");
+			System.out.println("| 1. View Inventory Dashboard                                  |");
+			System.out.println("| 2. Adjust Reorder Quantities                                 |");
+			System.out.println("| 3. Place an Order                                            |");
+			System.out.println("| 4. Check Stock Discrepancies                                 |");
+			System.out.println("| 5. Manually Adjust Stock                                     |");
+			System.out.println("| 6. Request Inventory Audit                                   |");
+			System.out.println("| 7. Handle Order Failure                                      |");
+			System.out.println("| 8. Reschedule Delivery                                       |");
+			System.out.println("| 9. Handle Damaged Product                                    |");
+			System.out.println("|--------------------------------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String inventoryTask = in.nextLine().toLowerCase();
-
+			Utility.clearConsole();
 			switch (inventoryTask) {
 				case "1":
 				case "view inventory dashboard":
@@ -207,23 +221,23 @@ public class Employee {
 					inloop = false;
 					System.out.println("Invalid option. Returning to task menu...");
 			}
+
 		}
 	}
 
 	public void handleSelfCheckoutAssistance() {
 		boolean inLoop = true;
 		while (inLoop) {
-			System.out.println("|----------------------------------------|");
-			System.out.println("|      SELF-CHECKOUT ASSISTANCE         |");
-			System.out.println("| 1. Monitor Stations                   |");
-			System.out.println("| 2. Resolve Issue                      |");
-			System.out.println("| 3. Authorize Age-Restricted Item      |");
-			System.out.println("| 4. Check Scanner Functionality        |");
-			System.out.println("| 5. Route Customer to Another Station  |");
-			System.out.println("| 6. Call for Additional Support        |");
-			System.out.println("| 7. Routine Station Check              |");
-			System.out.println("| 8. Investigate Cash Discrepancy       |");
-			System.out.println("| 0. Exit                               |");
+			Utility.createHeader(65, "Self Checkout Assistance");
+			System.out.println("| 1. Monitor Stations                    |");
+			System.out.println("| 2. Resolve Issue                       |");
+			System.out.println("| 3. Authorize Age-Restricted Item       |");
+			System.out.println("| 4. Check Scanner Functionality         |");
+			System.out.println("| 5. Route Customer to Another Station   |");
+			System.out.println("| 6. Call for Additional Support         |");
+			System.out.println("| 7. Routine Station Check               |");
+			System.out.println("| 8. Investigate Cash Discrepancy        |");
+			System.out.println("| 0. Exit                                |");
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String assistanceTask = in.nextLine().toLowerCase();
@@ -276,15 +290,15 @@ public class Employee {
 		boolean inLoop = true;
 		while (inLoop) {
 			System.out.println("|----------------------------------------|");
-			System.out.println("|     CUSTOMER SUPPORT AVAILABILITY     |");
-			System.out.println("| 1. Greet Customer and Confirm Issue   |");
-			System.out.println("| 2. Provide Product Information        |");
-			System.out.println("| 3. Process Return Request             |");
-			System.out.println("| 4. Check Order Status                 |");
-			System.out.println("| 5. Escalate to Manager or Technician  |");
-			System.out.println("| 6. Offer Alternative Solutions        |");
+			System.out.println("|     CUSTOMER SUPPORT AVAILABILITY      |");
+			System.out.println("| 1. Greet Customer and Confirm Issue    |");
+			System.out.println("| 2. Provide Product Information         |");
+			System.out.println("| 3. Process Return Request              |");
+			System.out.println("| 4. Check Order Status                  |");
+			System.out.println("| 5. Escalate to Manager or Technician   |");
+			System.out.println("| 6. Offer Alternative Solutions         |");
 			System.out.println("| 7. Log Inquiry                         |");
-			System.out.println("| 0. Exit                               |");
+			System.out.println("| 0. Exit                                |");
 			System.out.println("|----------------------------------------|");
 			System.out.print("Enter task to complete: ");
 			String supportTask = in.nextLine().toLowerCase();
@@ -383,15 +397,15 @@ public class Employee {
 
 				if (Float.isNaN(price))
 					System.out.printf("Error: no price for \"%s\".%n", name);
-//				else if (invManager.inventorySystem.getStockLevel(name) <= invManager.inventorySystem.getStockPrices().get(name))
-//					System.out.printf("Error: \"%s\" is out of stock.%n", name);
-//				else
+				// else if (invManager.inventorySystem.getStockLevel(name) <=
+				// invManager.inventorySystem.getStockPrices().get(name))
+				// System.out.printf("Error: \"%s\" is out of stock.%n", name);
+				// else
 
 				subtotal += price;
 				break;
 
 			}
-
 
 			names.add(name);
 			prices.add(price);

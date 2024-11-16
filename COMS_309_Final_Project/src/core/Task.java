@@ -23,32 +23,15 @@ public class Task {
 
     public void generateTasklistUI(ArrayList<String> steps, String taskGroupTitle) {
         taskSteps = steps;
-        int padding = (width - taskGroupTitle.length()) / 2;
-        System.out.println("|--------------------------------------------------------------|");
-        int endPadding;
-        if (taskGroupTitle.length() % 2 == 0) {
-            endPadding = padding - 2;
-        } else {
-            endPadding = padding - 3;
-        }
-
-        System.out.println("|" + addPadding(padding) + taskGroupTitle.toUpperCase() + addPadding(endPadding) + "|");
+        Utility.createHeader(width, taskGroupTitle);
         for (int i = 0; i < steps.size(); ++i) {
             String line = ("|" + (i + 1) + ". " + steps.get(i));
-            line += addPadding(width - line.length() - (2)); // the number is to account for the number label at the
+            line += Utility.addPadding(width - line.length() - (2)); // the number is to account for the number label at
             line += "|";
             System.out.println(line);
         }
         System.out.println("|--------------------------------------------------------------|");
         userInput();
-    }
-
-    private String addPadding(int amount) {
-        String text = "";
-        for (int i = 0; i < amount; ++i) {
-            text += " ";
-        }
-        return text;
     }
 
     private void userInput() {

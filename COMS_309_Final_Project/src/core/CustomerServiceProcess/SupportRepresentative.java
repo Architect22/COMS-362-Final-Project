@@ -2,7 +2,6 @@ package core.CustomerServiceProcess;
 
 import java.util.Scanner;
 
-
 public class SupportRepresentative {
     private CustomerSupportSystem supportSystem;
 
@@ -15,20 +14,21 @@ public class SupportRepresentative {
     }
 
     public void handleInquiry(CustomerInquiry inquiry) {
-        if (!supportSystem.withinOperatingHours()) {
-            supportSystem.handleOutsideOperatingHours();
-            return;
-        }
-        greetCustomer(inquiry);
-        
-        String issue = inquiry.getIssueDescription();
-        System.out.println("Customer issue: " + issue);
+        // if (!supportSystem.withinOperatingHours()) {
+        // supportSystem.handleOutsideOperatingHours();
+        // return;
+        // }
+        System.out.println("Processed return request");
+        // greetCustomer(inquiry);
 
-        if (issue.isEmpty()) {
-            requestAdditionalInfo(inquiry);
-        } else {
-            resolveIssue(inquiry);
-        }
+        // String issue = inquiry.getIssueDescription();
+        // System.out.println("Customer issue: " + issue);
+
+        // if (issue.isEmpty()) {
+        // requestAdditionalInfo(inquiry);
+        // } else {
+        // resolveIssue(inquiry);
+        // }
     }
 
     private void resolveIssue(CustomerInquiry inquiry) {
@@ -60,6 +60,5 @@ public class SupportRepresentative {
     public void checkOrderStatus() {
         System.out.println("Order Status: Providing status of your order...");
     }
-
 
 }
