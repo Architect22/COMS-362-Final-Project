@@ -47,7 +47,7 @@ public class Task {
                         loop = false;
                         break;
                     default:
-                        executeTask("test");
+                        executeTask(index);
                         break;
                 }
 
@@ -58,7 +58,7 @@ public class Task {
         }
     }
 
-    public void executeTask(String taskCode) {
+    public void executeTask(int taskCode) {
         System.out.println("Task Completed!");
     }
 }

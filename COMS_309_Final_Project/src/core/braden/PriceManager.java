@@ -1,16 +1,29 @@
-package core;
+package core.braden;
 
+import core.Task;
+import core.TaskType;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PriceManager {
+public class PriceManager extends Task {
 
     private Scanner in;
-    private InventorySystem inventorySystem;
+    private InventorySystem inventorySystem = new InventorySystem();
 
-    public PriceManager(InventorySystem inventorySystem) {
-        this.in = new Scanner(System.in);
-        this.inventorySystem = inventorySystem;
+    public PriceManager(String name, TaskType type, ArrayList<String> taskSteps) {
+        super(name, type, taskSteps);
+        generateTasklistUI(taskSteps, name);
+    }
+
+    @Override
+    public void executeTask(int taskCode) {
+        if(taskCode == 1){
+            priceUpdateProcess();
+        }else {
+            System.out.print("Task Complete!");
+        }
     }
 
     public void priceUpdateProcess() {
@@ -75,7 +88,6 @@ public class PriceManager {
             inventorySystem.updateStockPrice(item, newPrice);
             System.out.println("Price for " + item + " updated to: " + newPrice);
         }
-
 
         applyPriceChanges();
         generatePriceChangeReport();
