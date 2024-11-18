@@ -1,8 +1,10 @@
-package core;
+package core.Tasks;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import core.Utility;
 
 public class Task {
     private static final int width = 65;

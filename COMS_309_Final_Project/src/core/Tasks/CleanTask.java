@@ -1,4 +1,4 @@
-package core;
+package core.Tasks;
 
 import java.util.ArrayList;
 

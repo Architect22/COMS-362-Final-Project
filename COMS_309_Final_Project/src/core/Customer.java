@@ -2,6 +2,8 @@ package core;
 
 import java.util.Scanner;
 
+import core.SelfCheckoutManagerProcess.SelfCheckout;
+
 public class Customer {
     private Scanner in;
 

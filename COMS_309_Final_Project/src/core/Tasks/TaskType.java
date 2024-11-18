@@ -1,4 +1,4 @@
-package core;
+package core.Tasks;
 
 public enum TaskType {
     CLEAN,

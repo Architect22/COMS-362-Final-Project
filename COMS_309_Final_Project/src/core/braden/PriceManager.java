@@ -1,7 +1,7 @@
 package core.braden;
 
-import core.Task;
-import core.TaskType;
+import core.Tasks.Task;
+import core.Tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ public class PriceManager extends Task {
 
     @Override
     public void executeTask(int taskCode) {
-        if(taskCode == 1){
+        if (taskCode == 1) {
             priceUpdateProcess();
-        }else {
+        } else {
             System.out.print("Task Complete!");
         }
     }
@@ -31,17 +31,14 @@ public class PriceManager extends Task {
         System.out.println("Accessing Price Update Section...");
         inventorySystem.displayInventoryDashboard();
 
-
         System.out.print("Enter filter criteria (category, supplier, or promo): ");
         String filter = in.nextLine();
         List<String> filteredItems = filterItems(filter);
-
 
         if (filteredItems.isEmpty()) {
             System.out.println("No items found with the given filter. Please try again with different criteria.");
             return;
         }
-
 
         System.out.println("Filtered items:");
         for (String item : filteredItems) {
@@ -72,18 +69,16 @@ public class PriceManager extends Task {
             float newPrice = in.nextFloat();
             in.nextLine();
 
-
             if (newPrice < currentPrice * 1.1) {
                 System.out.println("Error: New price must be at least 10% higher than the current price.");
                 continue;
             }
 
-
             if (inventorySystem.checkForDiscrepancies(item)) {
-                System.out.println("Warning: Stock levels or sales forecast indicate issues for " + item + ". Please review.");
+                System.out.println(
+                        "Warning: Stock levels or sales forecast indicate issues for " + item + ". Please review.");
                 continue;
             }
-
 
             inventorySystem.updateStockPrice(item, newPrice);
             System.out.println("Price for " + item + " updated to: " + newPrice);
