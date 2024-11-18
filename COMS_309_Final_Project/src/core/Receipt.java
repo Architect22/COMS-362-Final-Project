@@ -1,5 +1,7 @@
 package core;
 
+import core.braden.InventorySystem;
+
 import java.util.HashMap;
 import java.util.Map;
 

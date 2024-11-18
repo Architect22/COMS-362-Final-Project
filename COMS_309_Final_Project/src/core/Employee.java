@@ -10,24 +10,24 @@ import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.CustomerSupportSystem;
 import core.CustomerServiceProcess.SupportRepresentative;
 import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
+import core.braden.AuditStockTask;
+import core.braden.InventoryManager;
+import core.braden.PriceManager;
 
 public class Employee {
 	private Scanner in;
-	private InventoryManager invManager;
-	private PriceManager priceManager;
 	private SelfCheckoutManager schMngr;
 	private SupportRepresentative csRep;
 	private CustomerSupportSystem supportSystem;
 	private CustomerInquiry inq;
 
-	public Employee(InventoryManager invManager, PriceManager priceManager, SelfCheckoutManager schMngr,
+	public Employee(SelfCheckoutManager schMngr,
 			SupportRepresentative csRep, CustomerInquiry inq) {
-		this.invManager = invManager;
+
 		this.schMngr = schMngr;
 		this.csRep = csRep;
 		this.inq = inq;
 
-		this.priceManager = priceManager;
 		in = new Scanner(System.in);
 		init();
 	}
@@ -129,100 +129,24 @@ public class Employee {
 	}
 
 	public void handlePriceUpdate() {
-		boolean inloop = true;
-		while (inloop) {
-			Utility.createHeader(65, "Price Management");
-			System.out.println("| 1. Price Update Process                |");
-			System.out.println("| 2. Walk Isles and Update Tags          |");
-			System.out.println("| 0. Exit        						 |");
-			System.out.println("|----------------------------------------|");
-			System.out.print("Enter task to complete: ");
-			String inventoryTask = in.nextLine().toLowerCase();
-
-			switch (inventoryTask) {
-				case "1":
-				case "view inventory dashboard":
-					priceManager.priceUpdateProcess();
-					break;
-				case "2":
-				case "Walk Isles and Update Tags":
-					invManager.adjustReorderQuantities();
-					break;
-				case "0":
-				case "exit":
-					inloop = false;
-					break;
-				default:
-					inloop = false;
-					System.out.println("Invalid option. Returning to task menu...");
-			}
-		}
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Price Update Process ");
+		steps.add("Walk Isles and Update Tags");
+		Task task = new PriceManager("Price Manager", TaskType.STOCK, steps);
 	}
 
 	public void handleInventory() {
-		boolean inloop = true;
-		while (inloop) {
-			Utility.createHeader(65, "Inventory Management");
-			System.out.println("| 1. View Inventory Dashboard                                  |");
-			System.out.println("| 2. Adjust Reorder Quantities                                 |");
-			System.out.println("| 3. Place an Order                                            |");
-			System.out.println("| 4. Check Stock Discrepancies                                 |");
-			System.out.println("| 5. Manually Adjust Stock                                     |");
-			System.out.println("| 6. Request Inventory Audit                                   |");
-			System.out.println("| 7. Handle Order Failure                                      |");
-			System.out.println("| 8. Reschedule Delivery                                       |");
-			System.out.println("| 9. Handle Damaged Product                                    |");
-			System.out.println("|--------------------------------------------------------------|");
-			System.out.print("Enter task to complete: ");
-			String inventoryTask = in.nextLine().toLowerCase();
-			Utility.clearConsole();
-			switch (inventoryTask) {
-				case "1":
-				case "view inventory dashboard":
-					invManager.viewInventoryDashboard();
-					break;
-				case "2":
-				case "adjust reorder quantities":
-					invManager.adjustReorderQuantities();
-					break;
-				case "3":
-				case "place an order":
-					invManager.placeOrder();
-					break;
-				case "4":
-				case "check stock discrepancies":
-					invManager.checkStockDiscrepancies();
-					break;
-				case "5":
-				case "manually adjust stock":
-					invManager.manuallyAdjustStock();
-					break;
-				case "6":
-				case "request inventory audit":
-					invManager.requestAudit();
-					break;
-				case "7":
-				case "handle order failure":
-					invManager.handleOrderFailure();
-					break;
-				case "8":
-				case "reschedule delivery":
-					invManager.rescheduleDelivery();
-					break;
-				case "9":
-				case "handle damaged product ":
-					invManager.handleDamagedProduct();
-					break;
-				case "0":
-				case "exit":
-					inloop = false;
-					break;
-				default:
-					inloop = false;
-					System.out.println("Invalid option. Returning to task menu...");
-			}
-
-		}
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("View Inventory Dashboard");
+		steps.add("Adjust Reorder Quantities");
+		steps.add("Place an Order");
+		steps.add("Manually Adjust Stock");
+		steps.add("Request Inventory Audit");
+		steps.add("Handle Order Failure");
+		steps.add("Reschedule Delivery");
+		steps.add("Handle Damaged Product");
+		steps.add("If stock is missing, manager investigates with suppliers");
+		Task task = new InventoryManager("Inventory Manager", TaskType.STOCK, steps);
 	}
 
 	public void handleSelfCheckoutAssistance() {
@@ -343,6 +267,21 @@ public class Employee {
 		}
 	}
 
+	public void AuditStock() {
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Get Inventory Dashboard list");
+		steps.add("Sync list on Scan Gun");
+		steps.add("Go to floor");
+		steps.add("Scan items as 'counting'");
+		steps.add("Completed if all items from the Dashboard are Scanned \n      Compare counted items with dashboard");
+		steps.add("If an item is out of place, move item to designated section");
+		steps.add("if scanner is failing count on paper");
+		steps.add("if there is an extra item on the shelf thats higher than the dashboard number manually increase item amount");
+		steps.add("If stock is damaged, manager investigates with suppliers");
+		steps.add("If stock is missing, manager investigates backroom");
+		Task task = new AuditStockTask("Audit Stock", TaskType.STOCK, steps);
+	}
+
 	public void StockShelves() {
 		ArrayList<String> steps = new ArrayList<>();
 		steps.add("Walk through isles checking what products need stocking");
@@ -393,7 +332,7 @@ public class Employee {
 					break o;
 				if ("cancel".equals(name))
 					return;
-				price = invManager.inventorySystem.getPrice(name);
+				//price = invManager.inventorySystem.getPrice(name);
 
 				if (Float.isNaN(price))
 					System.out.printf("Error: no price for \"%s\".%n", name);

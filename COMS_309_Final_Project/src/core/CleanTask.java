@@ -9,8 +9,8 @@ public class CleanTask extends Task {
     }
 
     @Override
-    public void executeTask(String taskCode) {
-        if (taskCode.equals("test")) {
+    public void executeTask(int taskCode) {
+        if (taskCode == 1) {
             test();
         }
     }
