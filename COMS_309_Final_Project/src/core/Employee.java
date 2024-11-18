@@ -119,7 +119,8 @@ public class Employee {
 				break;
 			case "Switch Department":
 			case "7":
-				handleCustomerSupport();
+				Utility.clearConsole();
+				Department.displayDepartmentDashboard();
 				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
