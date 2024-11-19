@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InventoryManager extends Task {
-    private final InventorySystem inventorySystem = new InventorySystem();
 
     public InventoryManager(String name, TaskType type, ArrayList<String> taskSteps) {
         super(name, type, taskSteps);
@@ -40,10 +39,10 @@ public class InventoryManager extends Task {
     }
 
     public void viewInventoryDashboard() {
-        if (!inventorySystem.isSystemOperational()) {
+        if (InventorySystem.getInstance().isSystemOperational()) {
             handleDashboardFailure();
         } else {
-            inventorySystem.displayInventoryDashboard();
+            InventorySystem.getInstance().displayInventoryDashboard();
             checkForAlerts();
         }
     }
@@ -53,8 +52,8 @@ public class InventoryManager extends Task {
     }
 
     private void checkForAlerts() {
-        for (String product : inventorySystem.getStockLevels().keySet()) {
-            if (inventorySystem.checkForDiscrepancies(product)) {
+        for (String product : InventorySystem.getInstance().getStockLevels().keySet()) {
+            if (InventorySystem.getInstance().checkForDiscrepancies(product)) {
                 System.out.println("Alert: Discrepancy detected for " + product);
             }
         }
@@ -65,7 +64,7 @@ public class InventoryManager extends Task {
         String product = new Scanner(System.in).nextLine();
         System.out.print("Enter the new reorder quantity: ");
         int quantity = Integer.parseInt(new Scanner(System.in).nextLine());
-        inventorySystem.updateReorderQuantity(product, quantity);
+        InventorySystem.getInstance().updateReorderQuantity(product, quantity);
         System.out.println("Reorder quantity for " + product + " adjusted to " + quantity);
     }
 
@@ -74,7 +73,7 @@ public class InventoryManager extends Task {
         String product = new Scanner(System.in).nextLine();
         System.out.print("Enter the quantity to order: ");
         int quantity = Integer.parseInt(new Scanner(System.in).nextLine());
-        inventorySystem.placeOrder(product, quantity);
+        InventorySystem.getInstance().placeOrder(product, quantity);
     }
 
     public void checkStockDiscrepancies() {
@@ -89,7 +88,7 @@ public class InventoryManager extends Task {
         String product = new Scanner(System.in).nextLine();
         System.out.print("Enter the adjustment amount (positive or negative): ");
         int adjustment = Integer.parseInt(new Scanner(System.in).nextLine());
-        inventorySystem.updateStock(product, adjustment);
+        InventorySystem.getInstance().updateStock(product, adjustment);
         System.out.println("Manually adjusted stock for " + product + " by " + adjustment);
     }
 

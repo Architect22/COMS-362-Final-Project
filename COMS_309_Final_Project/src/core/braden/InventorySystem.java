@@ -12,7 +12,16 @@ public class InventorySystem {
     private static final String CSV_FILE = "inventory.csv";
     private Scanner in;
 
-    public InventorySystem() {
+    public static InventorySystem instance;
+
+    public static InventorySystem getInstance() {
+        if (instance == null) {
+            instance = new InventorySystem();
+        }
+        return instance;
+    }
+
+    private InventorySystem() {
         loadFromCSV();
     }
 
@@ -137,17 +146,14 @@ public class InventorySystem {
         System.out.println("Accessing Price Update Section...");
         displayInventoryDashboard();
 
-
         System.out.print("Enter filter criteria (category, supplier, or promo): ");
         String filter = in.nextLine();
         List<String> filteredItems = filterItems(filter);
-
 
         if (filteredItems.isEmpty()) {
             System.out.println("No items found with the given filter. Please try again with different criteria.");
             return;
         }
-
 
         System.out.println("Filtered items:");
         for (String item : filteredItems) {
@@ -178,18 +184,16 @@ public class InventorySystem {
             float newPrice = in.nextFloat();
             in.nextLine();
 
-
             if (newPrice < currentPrice * 1.1) {
                 System.out.println("Error: New price must be at least 10% higher than the current price.");
                 continue;
             }
 
-
             if (checkForDiscrepancies(item)) {
-                System.out.println("Warning: Stock levels or sales forecast indicate issues for " + item + ". Please review.");
+                System.out.println(
+                        "Warning: Stock levels or sales forecast indicate issues for " + item + ". Please review.");
                 continue;
             }
-
 
             updateStockPrice(item, newPrice);
             System.out.println("Price for " + item + " updated to: " + newPrice);
