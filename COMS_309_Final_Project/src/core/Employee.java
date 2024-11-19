@@ -283,6 +283,20 @@ public class Employee {
 		Task task = new AuditStockTask("Audit Stock", TaskType.STOCK, steps);
 	}
 
+	public void ManageBackroom() {
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Manager reviews backroom stock");
+		steps.add("Identify overstock");
+		steps.add("Identify slow moving stock");
+		steps.add("Excess stock is moved to the sales floor or marked for liquidation");
+		steps.add("Slow moving stock is marked for liquidation, marks the price down, or moves out to the sales floor");
+		steps.add("Space in the backroom is reorganized for new inventory");
+		steps.add("Manager notes any discrepancies and arranges for a manual count if needed");
+		steps.add("Change price of slow moving stock");
+		steps.add("Liquidate Stock");
+		Task task = new Task("Manage Backroom", TaskType.STOCK, steps);
+	}
+
 	public void StockShelves() {
 		ArrayList<String> steps = new ArrayList<>();
 		steps.add("Walk through isles checking what products need stocking");
@@ -335,20 +349,20 @@ public class Employee {
 					return;
 				//price = invManager.inventorySystem.getPrice(name);
 
-				if (Float.isNaN(price))
-					System.out.printf("Error: no price for \"%s\".%n", name);
+				//if (Float.isNaN(price))
+				//	System.out.printf("Error: no price for \"%s\".%n", name);
 				// else if (invManager.inventorySystem.getStockLevel(name) <=
 				// invManager.inventorySystem.getStockPrices().get(name))
 				// System.out.printf("Error: \"%s\" is out of stock.%n", name);
 				// else
 
-				subtotal += price;
+				//subtotal += price;
 				break;
 
 			}
 
 			names.add(name);
-			prices.add(price);
+			//prices.add(price);
 			items.merge(name, 1, (a, b) -> a + b);
 		}
 
@@ -365,13 +379,13 @@ public class Employee {
 			System.out.println("Transaction declined (insufficient funds)");
 		}
 		for (Map.Entry<String, Integer> count : items.entrySet())
-			invManager.inventorySystem.updateStock(count.getKey(),
-					invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
+			//invManager.inventorySystem.updateStock(count.getKey(),
+			//		invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
 		System.out.println("Thank you for shopping with us!");
 
 		System.out.println();
 		System.out.println("Receipt:");
-		Receipt.create(items, invManager.inventorySystem).print();
+		//Receipt.create(items, invManager.inventorySystem).print();
 	}
 
 	public void handleReturn() {

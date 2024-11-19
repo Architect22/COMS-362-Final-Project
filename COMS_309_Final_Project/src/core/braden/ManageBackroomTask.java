@@ -6,11 +6,11 @@ import core.TaskType;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AuditStockTask extends Task {
+public class ManageBackroomTask extends Task {
 
     private InventorySystem inventorySystem;
 
-    public AuditStockTask(String name, TaskType type, ArrayList<String> taskSteps) {
+    public ManageBackroomTask(String name, TaskType type, ArrayList<String> taskSteps) {
         super(name, type, taskSteps);
         generateTasklistUI(taskSteps, name);
     }
@@ -19,8 +19,10 @@ public class AuditStockTask extends Task {
     public void executeTask(int taskCode) {
         if(taskCode == 1){
             inventorySystem.displayInventoryDashboard();
-        }else if(taskCode == 8 | taskCode == 9) {
-            System.out.print("Enter product to manually adjust stock: ");
+        }else if(taskCode == 8) {
+            inventorySystem.priceUpdateProcess();
+        }else if(taskCode == 9) {
+            System.out.print("Enter product to liquidate: ");
             String product = new Scanner(System.in).nextLine();
             System.out.print("Enter the adjustment amount");
             int adjustment = Integer.parseInt(new Scanner(System.in).nextLine());
