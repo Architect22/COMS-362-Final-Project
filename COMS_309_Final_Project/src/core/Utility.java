@@ -26,4 +26,26 @@ public class Utility {
         System.out.println(
                 "|" + Utility.addPadding(padding) + title.toUpperCase() + Utility.addPadding(endPadding) + "|");
     }
+
+    public static void displayLoadingAnimation(int loops, long frameDuration, String loadingMessage) {
+        for (int i = 0; i < loops; ++i) {
+            try {
+                clearConsole();
+                System.out.print(loadingMessage + " |");
+                Thread.sleep(frameDuration);
+                clearConsole();
+                System.out.print(loadingMessage + " /");
+                Thread.sleep(frameDuration);
+                clearConsole();
+                System.out.print(loadingMessage + " -");
+                Thread.sleep(frameDuration);
+                clearConsole();
+                System.out.print(loadingMessage + " \\");
+                Thread.sleep(frameDuration);
+                clearConsole();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
