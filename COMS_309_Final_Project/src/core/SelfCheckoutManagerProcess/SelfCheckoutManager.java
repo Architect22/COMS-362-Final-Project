@@ -1,10 +1,7 @@
 package core.SelfCheckoutManagerProcess;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-import core.SelfCheckout;
 
 public class SelfCheckoutManager {
     private List<SelfCheckout> stations;
@@ -67,7 +64,7 @@ public class SelfCheckoutManager {
 
     private boolean verifyCustomerID() {
         System.out.println("Enter ID verification result (1 for valid, 0 for invalid): ");
-        int idVerification = 1; 
+        int idVerification = 1;
         return idVerification == 1;
     }
 
@@ -113,7 +110,7 @@ public class SelfCheckoutManager {
 
     public void handleMultipleIssues() {
         System.out.println("Multiple issues detected at different stations. Prioritizing assistance...");
-        assistCustomer(stations.get(0)); 
+        assistCustomer(stations.get(0));
     }
 
     public void resolveIssue() {

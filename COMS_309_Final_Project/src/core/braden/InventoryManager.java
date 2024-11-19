@@ -1,7 +1,7 @@
 package core.braden;
 
-import core.Task;
-import core.TaskType;
+import core.Tasks.Task;
+import core.Tasks.TaskType;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,28 +16,29 @@ public class InventoryManager extends Task {
 
     @Override
     public void executeTask(int taskCode) {
-        if(taskCode == 1){
+        if (taskCode == 1) {
             viewInventoryDashboard();
-        }else if(taskCode == 2) {
+        } else if (taskCode == 2) {
             adjustReorderQuantities();
-        }else if(taskCode == 3){
+        } else if (taskCode == 3) {
             placeOrder();
-        }else if(taskCode == 4){
+        } else if (taskCode == 4) {
             checkStockDiscrepancies();
-        }else if(taskCode == 5){
+        } else if (taskCode == 5) {
             manuallyAdjustStock();
-        }else if(taskCode == 6){
+        } else if (taskCode == 6) {
             requestAudit();
-        }else if(taskCode == 7){
+        } else if (taskCode == 7) {
             handleOrderFailure();
-        }else if(taskCode == 8){
+        } else if (taskCode == 8) {
             rescheduleDelivery();
-        }else if(taskCode == 9){
+        } else if (taskCode == 9) {
             handleDamagedProduct();
-        }else {
+        } else {
             System.out.print("Task Complete!");
         }
     }
+
     public void viewInventoryDashboard() {
         if (!inventorySystem.isSystemOperational()) {
             handleDashboardFailure();

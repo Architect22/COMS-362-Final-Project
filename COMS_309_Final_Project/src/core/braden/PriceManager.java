@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PriceManager extends Task {
-
-    private Scanner in;
     private InventorySystem inventorySystem = new InventorySystem();
 
     public PriceManager(String name, TaskType type, ArrayList<String> taskSteps) {

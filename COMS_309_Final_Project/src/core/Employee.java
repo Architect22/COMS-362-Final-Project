@@ -9,7 +9,11 @@ import java.util.Scanner;
 import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.CustomerSupportSystem;
 import core.CustomerServiceProcess.SupportRepresentative;
+import core.Departments.Department;
 import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
+import core.Tasks.CleanTask;
+import core.Tasks.Task;
+import core.Tasks.TaskType;
 import core.braden.AuditStockTask;
 import core.braden.InventoryManager;
 import core.braden.PriceManager;
@@ -277,7 +281,8 @@ public class Employee {
 		steps.add("Completed if all items from the Dashboard are Scanned \n      Compare counted items with dashboard");
 		steps.add("If an item is out of place, move item to designated section");
 		steps.add("if scanner is failing count on paper");
-		steps.add("if there is an extra item on the shelf thats higher than the dashboard number manually increase item amount");
+		steps.add(
+				"if there is an extra item on the shelf thats higher than the dashboard number manually increase item amount");
 		steps.add("If stock is damaged, manager investigates with suppliers");
 		steps.add("If stock is missing, manager investigates backroom");
 		Task task = new AuditStockTask("Audit Stock", TaskType.STOCK, steps);
@@ -347,7 +352,7 @@ public class Employee {
 					break o;
 				if ("cancel".equals(name))
 					return;
-				//price = invManager.inventorySystem.getPrice(name);
+				// price = invManager.inventorySystem.getPrice(name);
 
 				//if (Float.isNaN(price))
 				//	System.out.printf("Error: no price for \"%s\".%n", name);
