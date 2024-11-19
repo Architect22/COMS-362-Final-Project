@@ -10,7 +10,6 @@ import core.braden.InventorySystem;
 public class StoreFront {
 
 	public static void main(String[] args) {
-		InventorySystem inventorySystem = new InventorySystem();
 
 		SelfCheckoutManager selfCheckoutManager = new SelfCheckoutManager(3, false);
 		SupportRepresentative supportRepresentative = new SupportRepresentative(null);

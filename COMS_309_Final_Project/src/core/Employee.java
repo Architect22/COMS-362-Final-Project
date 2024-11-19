@@ -14,9 +14,7 @@ import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
 import core.Tasks.CleanTask;
 import core.Tasks.Task;
 import core.Tasks.TaskType;
-import core.braden.AuditStockTask;
-import core.braden.InventoryManager;
-import core.braden.PriceManager;
+import core.braden.*;
 
 public class Employee {
 	private Scanner in;
@@ -299,7 +297,7 @@ public class Employee {
 		steps.add("Manager notes any discrepancies and arranges for a manual count if needed");
 		steps.add("Change price of slow moving stock");
 		steps.add("Liquidate Stock");
-		Task task = new Task("Manage Backroom", TaskType.STOCK, steps);
+		Task task = new ManageBackroomTask("Manage Backroom", TaskType.STOCK, steps);
 	}
 
 	public void StockShelves() {
@@ -352,22 +350,22 @@ public class Employee {
 					break o;
 				if ("cancel".equals(name))
 					return;
-				// price = invManager.inventorySystem.getPrice(name);
+				price =  InventorySystem.getInstance().getPrice(name);
 
-				//if (Float.isNaN(price))
-				//	System.out.printf("Error: no price for \"%s\".%n", name);
-				// else if (invManager.inventorySystem.getStockLevel(name) <=
-				// invManager.inventorySystem.getStockPrices().get(name))
-				// System.out.printf("Error: \"%s\" is out of stock.%n", name);
-				// else
+				if (Float.isNaN(price))
+					System.out.printf("Error: no price for \"%s\".%n", name);
+				 else if ( InventorySystem.getInstance().getStockLevel(name) <=
+						InventorySystem.getInstance().getStockPrices().get(name))
+				 System.out.printf("Error: \"%s\" is out of stock.%n", name);
+				 else
 
-				//subtotal += price;
+				subtotal += price;
 				break;
 
 			}
 
 			names.add(name);
-			//prices.add(price);
+			prices.add(price);
 			items.merge(name, 1, (a, b) -> a + b);
 		}
 
@@ -384,13 +382,13 @@ public class Employee {
 			System.out.println("Transaction declined (insufficient funds)");
 		}
 		for (Map.Entry<String, Integer> count : items.entrySet())
-			//invManager.inventorySystem.updateStock(count.getKey(),
-			//		invManager.inventorySystem.getStockLevel(count.getKey()) - count.getValue());
+			InventorySystem.getInstance().updateStock(count.getKey(),
+					InventorySystem.getInstance().getStockLevel(count.getKey()) - count.getValue());
 		System.out.println("Thank you for shopping with us!");
 
 		System.out.println();
 		System.out.println("Receipt:");
-		//Receipt.create(items, invManager.inventorySystem).print();
+		Receipt.create(items,  InventorySystem.getInstance()).print();
 	}
 
 	public void handleReturn() {
