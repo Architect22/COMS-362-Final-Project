@@ -1,9 +1,13 @@
 package core.Departments;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import core.Utility;
+import core.Tasks.FloralTask;
+import core.Tasks.Task;
+import core.Tasks.TaskType;
 
 public class FloralDepartment extends Department {
     private static FloralDepartment instance;
@@ -22,12 +26,12 @@ public class FloralDepartment extends Department {
     @Override
     public void displayDepartmentTasks() {
         Utility.createHeader(width, "Floral Department");
-        System.out.println("| 1. Handle Customer Order                                     |");
-        System.out.println("|--------------------------------------------------------------|");
-        handleCustomerOrder();
+        ArrayList<String> tasks = new ArrayList<>();
+        tasks.add("Handle Customer Order");
+        Task task = new FloralTask("Floral Tasks", TaskType.FLORAL, tasks);
     }
 
-    private void handleCustomerOrder() {
+    public void handleCustomerOrder() {
         Scanner inString = new Scanner(System.in);
         Scanner inInt = new Scanner(System.in);
         HashMap<String, Integer> display = new HashMap<>();
