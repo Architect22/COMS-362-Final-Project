@@ -6,7 +6,7 @@ import java.util.Scanner;
 import core.Utility;
 
 public class FloralDepartment extends Department {
-    public static FloralDepartment instance;
+    private static FloralDepartment instance;
 
     private FloralDepartment(String name) {
         super(name);

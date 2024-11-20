@@ -6,7 +6,7 @@ import java.util.Scanner;
 import core.Utility;
 
 public class MeatDepartment extends Department {
-    public static MeatDepartment instance;
+    private static MeatDepartment instance;
 
     private MeatDepartment(String name) {
         super(name);
