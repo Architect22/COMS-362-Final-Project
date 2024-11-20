@@ -39,6 +39,7 @@ public class Department {
             meat.displayDepartmentTasks();
         } else if (input.equals("3") || input.toLowerCase().equals("security department")) {
             SecurityDepartment security = SecurityDepartment.getInstance();
+            security.displayDepartmentTasks();
             
         }
     }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class SecurityTask extends Task {
     public static SecurityDepartment secDep;
-    public static SecurityManager securityPersonnel; 
+    public static SecurityManager securityPersonnel = new SecurityManager(); 
 
 
     public SecurityTask(String name, TaskType type, ArrayList<String> taskSteps) {
@@ -16,15 +16,15 @@ public class SecurityTask extends Task {
     @Override
     public void executeTask(int taskCode) {
         if (taskCode == 1) {
-            this.securityPersonnel.monitorStore();
+            securityPersonnel.monitorStore();
         } else if (taskCode == 2) {
-            this.securityPersonnel.reportTheft();
+            securityPersonnel.reportTheft();
         } else if (taskCode == 3) {
-            this.securityPersonnel.respondToEmergency();
+            securityPersonnel.respondToEmergency();
         } else if (taskCode == 4) {
-            this.securityPersonnel.reviewSurveillanceFootage();
+            securityPersonnel.reviewSurveillanceFootage();
         } else if (taskCode == 5) {
-            this.securityPersonnel.patrolPremises();
+            securityPersonnel.patrolPremises();
         }
     }
 

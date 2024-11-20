@@ -214,20 +214,6 @@ public class Employee {
 		}
 	}
 
-	public void handleSecurityMonitoring() {
-
-		ArrayList<String> steps = new ArrayList<>();
-		steps.add("Monitor Live Camera Feeds ");
-		steps.add("Review Alerts or Suspicious Events");
-		steps.add("Patrol the Store");
-		steps.add("Check Alarm and Sensor Status");
-		steps.add("Respond to Active Incident");
-		steps.add("Document Incident Details");
-		steps.add("Communicate with Other Personnel");
-		Task task = new Task("Security Personnel", TaskType.SECURITY, steps);
-
-    }
-
 	public void handleCustomerSupport() {
 		boolean inLoop = true;
 		while (inLoop) {
