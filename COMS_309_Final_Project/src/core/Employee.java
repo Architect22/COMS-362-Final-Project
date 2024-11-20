@@ -1,11 +1,5 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.CustomerSupportSystem;
 import core.CustomerServiceProcess.SupportRepresentative;
@@ -15,6 +9,11 @@ import core.Tasks.CleanTask;
 import core.Tasks.Task;
 import core.Tasks.TaskType;
 import core.braden.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Employee {
 	private Scanner in;
@@ -22,6 +21,8 @@ public class Employee {
 	private SupportRepresentative csRep;
 	private CustomerSupportSystem supportSystem;
 	private CustomerInquiry inq;
+	private SecurityManager securityPersonnel;
+
 
 	public Employee(SelfCheckoutManager schMngr,
 			SupportRepresentative csRep, CustomerInquiry inq) {
@@ -212,6 +213,20 @@ public class Employee {
 			}
 		}
 	}
+
+	public void handleSecurityMonitoring() {
+
+		ArrayList<String> steps = new ArrayList<>();
+		steps.add("Monitor Live Camera Feeds ");
+		steps.add("Review Alerts or Suspicious Events");
+		steps.add("Patrol the Store");
+		steps.add("Check Alarm and Sensor Status");
+		steps.add("Respond to Active Incident");
+		steps.add("Document Incident Details");
+		steps.add("Communicate with Other Personnel");
+		Task task = new Task("Security Personnel", TaskType.SECURITY, steps);
+
+    }
 
 	public void handleCustomerSupport() {
 		boolean inLoop = true;
