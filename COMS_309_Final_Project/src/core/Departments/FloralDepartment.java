@@ -2,6 +2,7 @@ package core.Departments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 import core.Utility;
@@ -36,12 +37,21 @@ public class FloralDepartment extends Department {
         Scanner inInt = new Scanner(System.in);
         HashMap<String, Integer> display = new HashMap<>();
         boolean selecting = true;
+        int amount = 0;
         while (selecting) {
             System.out.print("Enter the flower for display: ");
             String flower = inString.nextLine();
 
-            System.out.print("Enter the number of this flower in display: ");
-            int amount = inInt.nextInt();
+            if (!hasStock()) {
+                System.out.println("We don't have that in stock. Would you like to select a replacement?: (y/n)");
+                String response = inString.nextLine().toLowerCase();
+                if (response.equals("y")) {
+                    continue;
+                }
+            } else {
+                System.out.print("Enter the number of this flower in display: ");
+                amount = inInt.nextInt();
+            }
 
             System.out.print("Is that all: (y/n)");
             String quit = inString.nextLine();
@@ -53,5 +63,15 @@ public class FloralDepartment extends Department {
         }
         Utility.displayLoadingAnimation(3, 500, "Creating your floral display...");
         System.out.println("Your order of " + display.entrySet().toString() + " was successfully created!");
+    }
+
+    private boolean hasStock() {
+        Random rand = new Random();
+        int check = rand.nextInt(2);
+        if (check == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
