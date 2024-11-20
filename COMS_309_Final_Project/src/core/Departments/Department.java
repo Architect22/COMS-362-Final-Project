@@ -1,8 +1,8 @@
 package core.Departments;
 
-import java.util.Scanner;
-
+import core.PharmacyDepartment;
 import core.Utility;
+import java.util.Scanner;
 
 public class Department {
     String name;
@@ -16,6 +16,7 @@ public class Department {
         Utility.createHeader(width, "Departments");
         System.out.println("| 1. Floral Department                                         |");
         System.out.println("| 2. Meat Department                                           |");
+        System.out.println("| 3. Pharmacy Department                                           |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -36,6 +37,9 @@ public class Department {
         } else if (input.equals("2") || input.toLowerCase().equals("meat department")) {
             MeatDepartment meat = MeatDepartment.getInstance();
             meat.displayDepartmentTasks();
+        } else if (input.equals("3") || input.toLowerCase().equals("pharmacy department")) {
+            PharmacyDepartment pharmacy = PharmacyDepartment.getInstance();
+            pharmacy.displayDepartmentTasks();
         }
     }
 }
