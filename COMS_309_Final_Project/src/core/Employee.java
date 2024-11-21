@@ -1,11 +1,5 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.CustomerSupportSystem;
 import core.CustomerServiceProcess.SupportRepresentative;
@@ -15,6 +9,11 @@ import core.Tasks.CleanTask;
 import core.Tasks.Task;
 import core.Tasks.TaskType;
 import core.braden.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Employee {
 	private Scanner in;
@@ -22,6 +21,8 @@ public class Employee {
 	private SupportRepresentative csRep;
 	private CustomerSupportSystem supportSystem;
 	private CustomerInquiry inq;
+	private SecurityManager securityPersonnel;
+
 
 	public Employee(SelfCheckoutManager schMngr,
 			SupportRepresentative csRep, CustomerInquiry inq) {

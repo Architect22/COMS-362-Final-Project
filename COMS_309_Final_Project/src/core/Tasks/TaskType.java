@@ -5,6 +5,7 @@ public enum TaskType {
     STOCK,
     INVENTORY,
     PRICETAGS, 
+    SECURITY,
     PHARMACY,
     FLORAL,
     MEAT,
