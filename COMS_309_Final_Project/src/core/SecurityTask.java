@@ -25,7 +25,12 @@ public class SecurityTask extends Task {
             securityPersonnel.reviewSurveillanceFootage();
         } else if (taskCode == 5) {
             securityPersonnel.patrolPremises();
+        } else if (taskCode == 6) {
+            securityPersonnel.documentIncident();
+        } else if (taskCode == 6) {
+            securityPersonnel.communicateWithOtherPersonnel();
         }
+
     }
 
 

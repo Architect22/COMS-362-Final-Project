@@ -27,6 +27,14 @@ public class SecurityManager {
         System.out.println("Theft report logged with details: " + description);
     }
 
+    public void documentIncident() {
+        System.out.print("Documenting incident... ");
+    }
+
+    public void communicateWithOtherPersonnel() {
+        System.out.print("Locating and meeting with other security personnel...");
+    }
+
     public void respondToEmergency() {
         System.out.println("Emergency detected!");
         System.out.println("1. Call Emergency Services (911)");

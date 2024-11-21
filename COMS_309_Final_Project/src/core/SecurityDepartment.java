@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class SecurityDepartment extends Department {
     public static SecurityDepartment instance;
-    public static SecurityManager securityPersonnel;
-    public static SecurityTask securityTasks;
 
     
     public SecurityDepartment(String name) {
