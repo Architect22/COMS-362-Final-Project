@@ -29,12 +29,12 @@ public class HumanResourcesDepartment extends Department
 	@SuppressWarnings("resource")
 	public void displayDepartmentTasks()
 	{
-		Utility.createHeader(width, "Floral Department");
+		Utility.createHeader(width, "Human Resources Department");
 		System.out.println("| 1. Hire Employee                                             |");
 		System.out.println("| 2. Handle Payroll                                            |");
 		System.out.println("|--------------------------------------------------------------|");
 		Scanner in = new Scanner(System.in);
-		switch (in.nextInt())
+		switch (Integer.parseInt(in.nextLine()))
 		{
 		case 1:
 			hireEmployee(in);
@@ -56,9 +56,9 @@ public class HumanResourcesDepartment extends Department
 			
 			System.out.print("Enter employee social security number: ");
 			String ssn = in.nextLine();
-			if (Pattern.matches("\\d\\d\\d-\\d\\d-\\d\\d\\d\\d", ssn))
+			if (!Pattern.matches("^\\d\\d\\d-\\d\\d-\\d\\d\\d\\d$", ssn))
 			{
-				System.out.println("Invalid social security number.");
+				System.out.println("Invalid social security number: " + ssn);
 				continue;
 			}
 			
@@ -140,11 +140,11 @@ public class HumanResourcesDepartment extends Department
 		}
 		
 		float pay = employee.getPay() * hoursWorked;
-		System.out.printf("%f hours worked: $%.2f%n", hoursWorked, pay);
+		System.out.printf("%s hours worked: $%.2f%n", hoursWorked, pay);
 		if (hoursWorked > 40)
 		{
 			float overtimePay = 0.5f * employee.getPay() * (hoursWorked - 40f);
-			System.out.printf("%f hours overtime: +$%.2f%n", hoursWorked - 40f, overtimePay);
+			System.out.printf("%s hours overtime: +$%.2f%n", hoursWorked - 40f, overtimePay);
 			pay += overtimePay;
 			System.out.printf("Total gross pay: $%.2f%n", pay);
 		}
