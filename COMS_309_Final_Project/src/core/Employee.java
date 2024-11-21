@@ -55,6 +55,8 @@ public class Employee {
 		System.out.println("|                  TASKS                 |");
 		System.out.println("| 1. Inventory                           |");
 		System.out.println("| 2. Update Price Tags                   |");
+		System.out.println("| 3. Audit Stock                         |");
+		System.out.println("| 4. Manage Backroom                        |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -86,6 +88,14 @@ public class Employee {
 			case "2":
 			case "update price tags":
 				handlePriceUpdate();
+				break;
+			case "3":
+			case "Audit Stock":
+				AuditStock();
+				break;
+			case "4":
+			case "Manage Backroom":
+				ManageBackroom();
 				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
@@ -281,8 +291,7 @@ public class Employee {
 		steps.add("Completed if all items from the Dashboard are Scanned \n      Compare counted items with dashboard");
 		steps.add("If an item is out of place, move item to designated section");
 		steps.add("if scanner is failing count on paper");
-		steps.add(
-				"if there is an extra item on the shelf thats higher than the dashboard number manually increase item amount");
+		steps.add("if there is an extra item on the shelf thats higher than the dashboard number manually increase item amount");
 		steps.add("If stock is damaged, manager investigates with suppliers");
 		steps.add("If stock is missing, manager investigates backroom");
 		Task task = new AuditStockTask("Audit Stock", TaskType.STOCK, steps);
