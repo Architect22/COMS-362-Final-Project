@@ -1,9 +1,8 @@
 package core.Departments;
 
-import core.PharmacyDepartment;
-import core.SecurityDepartment;
-import core.Utility;
 import java.util.Scanner;
+
+import core.Utility;
 
 public class Department {
     String name;
@@ -20,6 +19,8 @@ public class Department {
         System.out.println("| 3. Security Department                                       |");
         System.out.println("| 4. Pharmacy Department                                       |");
         System.out.println("| 5. Human Resources Department                                |");
+        System.out.println("| 6. Online Order Department                                   |");
+        System.out.println("| 7. Receipt Verification Department                           |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -59,6 +60,17 @@ public class Department {
         	HumanResourcesDepartment hr = HumanResourcesDepartment.getInstance();
         	hr.displayDepartmentTasks();
         	break;
+
+            case "6": case "online order department":
+            OnlineOrderDepartment onlineOrder = OnlineOrderDepartment.getInstance();
+            onlineOrder.displayDepartmentTasks();
+            break;
+            
+        	case "7": case "receipt verification department":
+        	ReceiptVerificationDepartment receiptVerification = ReceiptVerificationDepartment.getInstance();
+            receiptVerification.displayDepartmentTasks();
+        	break;
+
         }
     }
 }

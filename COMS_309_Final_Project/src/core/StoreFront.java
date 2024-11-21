@@ -1,11 +1,9 @@
 package core;
 
-import java.util.Scanner;
-
 import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.SupportRepresentative;
 import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
-import core.braden.InventorySystem;
+import java.util.Scanner;
 
 public class StoreFront {
 

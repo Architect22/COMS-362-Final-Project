@@ -9,4 +9,6 @@ public enum TaskType {
     PHARMACY,
     FLORAL,
     MEAT,
+    ONLINE_ORDER,
+    RECEIPT_VERIFICATION
 }
