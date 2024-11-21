@@ -5,7 +5,6 @@ import core.Tasks.TaskType;
 import java.util.ArrayList;
 
 public class SecurityTask extends Task {
-    public static SecurityDepartment secDep;
     public static SecurityManager securityPersonnel = new SecurityManager(); 
 
 
@@ -27,7 +26,7 @@ public class SecurityTask extends Task {
             securityPersonnel.patrolPremises();
         } else if (taskCode == 6) {
             securityPersonnel.documentIncident();
-        } else if (taskCode == 6) {
+        } else if (taskCode == 7) {
             securityPersonnel.communicateWithOtherPersonnel();
         }
 
