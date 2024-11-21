@@ -10,7 +10,7 @@ public class InventorySystem {
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
     private static final String CSV_FILE = "inventory.csv";
-    private Scanner in;
+    private Scanner in = new Scanner(System.in);
 
     public static InventorySystem instance;
 
