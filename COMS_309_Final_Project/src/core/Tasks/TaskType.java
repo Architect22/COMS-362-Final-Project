@@ -6,5 +6,7 @@ public enum TaskType {
     INVENTORY,
     PRICETAGS,
     FLORAL,
-    MEAT
+    MEAT,
+    ONLINE_ORDER,
+    RECEIPT_VERIFICATION
 }
