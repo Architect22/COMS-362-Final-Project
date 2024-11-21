@@ -11,7 +11,7 @@ public class HumanResourcesDepartment extends Department
 {
 	private static HumanResourcesDepartment instance;
 	
-	public HumanResourcesDepartment()
+	private HumanResourcesDepartment()
 	{
 		super("Human Resources Department");
 	}
