@@ -15,9 +15,10 @@ public class AuditStockTask extends Task {
 
     @Override
     public void executeTask(int taskCode) {
-        if (taskCode == 1) {
+        if (taskCode == 1 | taskCode == 7) {
             InventorySystem.getInstance().displayInventoryDashboard();
-        } else if (taskCode == 8 | taskCode == 9) {
+        }
+        else if (taskCode == 8 | taskCode == 9) {
             System.out.print("Enter product to manually adjust stock: ");
             String product = new Scanner(System.in).nextLine();
             System.out.print("Enter the adjustment amount");
