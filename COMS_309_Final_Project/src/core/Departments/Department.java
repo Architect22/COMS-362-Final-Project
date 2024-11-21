@@ -18,7 +18,8 @@ public class Department {
         System.out.println("| 1. Floral Department                                         |");
         System.out.println("| 2. Meat Department                                           |");
         System.out.println("| 3. Security Department                                       |");
-        System.out.println("| 4. Pharmacy Department                                           |");
+        System.out.println("| 4. Pharmacy Department                                       |");
+        System.out.println("| 5. Human Resources Department                                |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -32,22 +33,32 @@ public class Department {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
-        if (input.equals("1") || input.toLowerCase().equals("floral department")) {
+        switch (input.toLowerCase())
+        {
+        	case "1": case "floral department":
             FloralDepartment floral = FloralDepartment.getInstance();
             floral.displayDepartmentTasks();
-
-        } else if (input.equals("2") || input.toLowerCase().equals("meat department")) {
+        	break;
+        	
+        	case "2": case "meat department":
             MeatDepartment meat = MeatDepartment.getInstance();
             meat.displayDepartmentTasks();
+            break;
 
-        } else if (input.equals("3") || input.toLowerCase().equals("security department")) {
+        	case "3": case "security department":
             SecurityDepartment security = SecurityDepartment.getInstance();
             security.displayDepartmentTasks();
+            break;
             
-        } else if (input.equals("4") || input.toLowerCase().equals("pharmacy department")) {
+        	case "4": case "pharmacy department":
             PharmacyDepartment pharmacy = PharmacyDepartment.getInstance();
             pharmacy.displayDepartmentTasks();
+            break;
             
+        	case "5": case "human resources department":
+        	HumanResourcesDepartment hr = HumanResourcesDepartment.getInstance();
+        	hr.displayDepartmentTasks();
+        	break;
         }
     }
 }
