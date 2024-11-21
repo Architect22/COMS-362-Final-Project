@@ -143,6 +143,7 @@ public class Employee {
 		steps.add("View Inventory Dashboard");
 		steps.add("Adjust Reorder Quantities");
 		steps.add("Place an Order");
+		steps.add("Check Stock Discrepancies");
 		steps.add("Manually Adjust Stock");
 		steps.add("Request Inventory Audit");
 		steps.add("Handle Order Failure");
