@@ -56,7 +56,8 @@ public class Employee {
 		System.out.println("| 1. Inventory                           |");
 		System.out.println("| 2. Update Price Tags                   |");
 		System.out.println("| 3. Audit Stock                         |");
-		System.out.println("| 4. Manage Backroom                        |");
+		System.out.println("| 4. Manage Backroom                     |");
+		System.out.println("| 5. Vendor Management                   |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -96,6 +97,10 @@ public class Employee {
 			case "4":
 			case "Manage Backroom":
 				ManageBackroom();
+				break;
+			case "5":
+			case "Vendor Management":
+				handleVendor();
 				break;
 			default:
 				System.out.println("Invalid task number. Please try again.");
@@ -160,6 +165,7 @@ public class Employee {
 		steps.add("Handle Order Failure");
 		steps.add("Reschedule Delivery");
 		steps.add("Handle Damaged Product");
+		steps.add("Manage Vendor Deliveries");
 		steps.add("If stock is missing, manager investigates with suppliers");
 		Task task = new InventoryManager("Inventory Manager", TaskType.STOCK, steps);
 	}
@@ -224,6 +230,21 @@ public class Employee {
 			}
 		}
 	}
+
+	public void handleVendor() {
+		ArrayList<String> steps = new ArrayList<>();
+
+		steps.add("Log into the vendor management system.");
+		steps.add("Display list of pending vendor deliveries for the week.");
+		steps.add("Select a vendor and review the delivery details (products, quantities, delivery times).");
+		steps.add("Unload and check the shipment upon arrival.");
+		steps.add("Verify the delivered quantities against the purchase order.If quantities match, approve the delivery.");
+		steps.add("Update inventory levels and mark the order as reconciled.");
+		steps.add("Send automated confirmation to the vendor.");
+	
+		Task task = new VendorTask("Vendor Delivery Management", TaskType.VENDOR, steps);
+		
+    }
 
 	public void handleCustomerSupport() {
 		boolean inLoop = true;
