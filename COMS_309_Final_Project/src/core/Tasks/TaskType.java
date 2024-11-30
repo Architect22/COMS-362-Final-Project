@@ -10,6 +10,5 @@ public enum TaskType {
     FLORAL,
     MEAT,
     ONLINE_ORDER,
-    RECEIPT_VERIFICATION, 
-    ORDER_CURBSIDE,
+    RECEIPT_VERIFICATION
 }
