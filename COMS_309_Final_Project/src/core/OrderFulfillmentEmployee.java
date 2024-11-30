@@ -1,7 +1,5 @@
 package core;
 
-
-
 public class OrderFulfillmentEmployee {
     private String name;
 
@@ -13,11 +11,11 @@ public class OrderFulfillmentEmployee {
         System.out.println(name + " has logged into the system.");
     }
 
-    public void handleOrder(String orderNumber, OrderFulFillmentSystem system) {
+    public void handleOrder(String orderNumber, OrderFulfillmentSystem system) {
         system.prepareOrder(orderNumber);
     }
 
-    public void markOrderAsPickedUp(String orderNumber, OrderFulFillmentSystem system) {
+    public void markOrderAsPickedUp(String orderNumber, OrderFulfillmentSystem system) {
         system.markOrderAsPickedUp(orderNumber);
     }
 }

@@ -5,11 +5,11 @@ import core.Tasks.TaskType;
 import java.util.ArrayList;
 
 public class OrderCurbsideTask extends Task{
-    private OrderFulFillmentSystem orderSystem;
+    private OrderFulfillmentSystem orderSystem;
     
     public OrderCurbsideTask(String name, TaskType type, ArrayList<String> taskSteps) {
         super(name, type, taskSteps);
-        orderSystem = OrderFulFillmentSystem.getInstance();
+        orderSystem = OrderFulfillmentSystem.getInstance();
     }
 
     @Override
