@@ -164,6 +164,25 @@ public class Employee {
 		Task task = new InventoryManager("Inventory Manager", TaskType.STOCK, steps);
 	}
 
+	public void handleCurbsideOrder() {
+		ArrayList<String> steps = new ArrayList<>();
+
+		steps.add("Log into the terminal system.");
+		steps.add("Display a list of pending curbside pickup orders sorted by pickup time.");
+		steps.add("Select an order to prepare.");
+		steps.add("Display order details including customer name, order number, and list of items.");
+		steps.add("Mark each item as picked in the terminal as they are gathered.");
+		steps.add("Mark the order status as Ready for Pickup once all items are picked.");
+		steps.add("Automatically send a notification to the customer that their order is ready.");
+		steps.add("Customer arrives and provides their order number.");
+		steps.add("Confirm the order number in the system.");
+		steps.add("Mark the order as Picked Up.");
+		steps.add("Record the completion time and log the order as fulfilled.");
+
+		Task task = new OrderCurbsideTask("OrderFulfillmentEmployee", TaskType.ORDER_CURBSIDE, steps);
+	
+	}
+
 	public void handleSelfCheckoutAssistance() {
 		boolean inLoop = true;
 		while (inLoop) {
