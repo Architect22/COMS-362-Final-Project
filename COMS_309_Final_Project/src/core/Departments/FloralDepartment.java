@@ -47,6 +47,8 @@ public class FloralDepartment extends Department {
                 String response = inString.nextLine().toLowerCase();
                 if (response.equals("y")) {
                     continue;
+                } else {
+                    flower = "";
                 }
             } else {
                 System.out.print("Enter the number of this flower in display: ");

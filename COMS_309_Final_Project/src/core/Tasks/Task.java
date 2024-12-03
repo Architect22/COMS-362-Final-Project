@@ -40,7 +40,6 @@ public class Task {
         boolean loop = true;
         Scanner in = new Scanner(System.in); // don't close otherwise loop scanner breaks in storefront class!
         while (loop) {
-
             System.out.println("Please enter the number of the step you would like to complete (enter -1 to quit): ");
             int index = in.nextInt();
             if (index <= taskSteps.size()) {
@@ -56,7 +55,6 @@ public class Task {
             } else {
                 System.out.println("That is not a valid step!");
             }
-
         }
     }
 
