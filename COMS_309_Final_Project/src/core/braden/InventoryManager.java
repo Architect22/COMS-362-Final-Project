@@ -39,7 +39,7 @@ public class InventoryManager extends Task {
     }
 
     public void viewInventoryDashboard() {
-        if (InventorySystem.getInstance().isSystemOperational()) {
+        if (!InventorySystem.getInstance().isSystemOperational()) {
             handleDashboardFailure();
         } else {
             InventorySystem.getInstance().displayInventoryDashboard();
