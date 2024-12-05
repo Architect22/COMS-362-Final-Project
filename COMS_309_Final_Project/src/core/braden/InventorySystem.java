@@ -89,7 +89,7 @@ public class InventorySystem {
     }
 
     public void placeOrder(String product, int quantity) {
-        System.out.println("Order placed for " + quantity + " units of " + product);
+        System.out.println("Order placed for " + -1 * quantity + " units of " + product);
         updateStock(product, quantity);
     }
 

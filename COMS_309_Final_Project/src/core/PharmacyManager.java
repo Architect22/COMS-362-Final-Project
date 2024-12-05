@@ -25,8 +25,11 @@ public class PharmacyManager {
 
         while (!inv.getStockLevels().containsKey(prescriptionDetails)) {
             System.out.println("The entered prescription \"" + prescriptionDetails + "\" is not available in the inventory.");
-            System.out.print("Please provide a valid prescription name: ");
+            System.out.print("Please provide a valid prescription name (-1 to exit): ");
             prescriptionDetails = in.nextLine();
+            if (prescriptionDetails.equals("-1")) {
+                return;
+            }
         }
 
         prescriptionName = prescriptionDetails;
@@ -41,14 +44,19 @@ public class PharmacyManager {
 
     public void processPayment() {
         System.out.println("Processing payment...");
-        System.out.print("Enter payment method (e.g., Credit Card, Cash, -1 to cancel): ");
+        System.out.println("Enter payment method (e.g., Credit Card, Cash, -1 to cancel): ");
+
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+
         String paymentMethod = in.nextLine();
 
         if (paymentMethod.equals("") || paymentMethod.equals("-1")) {
             System.out.println("Payment declined. Please provide an alternate payment method.");
         } else {
             System.out.println("Payment successfully processed using: " + paymentMethod);
-            inv.placeOrder(prescriptionName, numProduct);
+            inv.placeOrder(prescriptionName, numProduct * -1);
             System.out.println("Processing payment with: " + paymentMethod);
             System.out.println("Order placed!");
         }
