@@ -3,7 +3,7 @@ package core.Departments;
 import java.util.ArrayList;
 
 import core.Utility;
-import core.Tasks.FloralTask;
+import core.Tasks.BakeryTask;
 import core.Tasks.Task;
 import core.Tasks.TaskType;
 
@@ -26,7 +26,7 @@ public class BakeryDepartment extends Department {
         Utility.createHeader(width, "Bakery Department");
         ArrayList<String> tasks = new ArrayList<>();
         tasks.add("Bake Daily Menu");
-        // Task task = new BakeryTask("Bakery Tasks", TaskType.BAKERY, tasks);
+        Task task = new BakeryTask("Bakery Tasks", TaskType.BAKERY, tasks);
     }
 
     public void BakeItem() {

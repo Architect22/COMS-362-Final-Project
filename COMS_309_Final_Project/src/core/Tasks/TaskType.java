@@ -4,11 +4,13 @@ public enum TaskType {
     CLEAN,
     STOCK,
     INVENTORY,
-    PRICETAGS, 
+    PRICETAGS,
     SECURITY,
     PHARMACY,
     FLORAL,
     MEAT,
     ONLINE_ORDER,
-    RECEIPT_VERIFICATION
+    RECEIPT_VERIFICATION,
+    BAKERY,
+    PRODUCE
 }

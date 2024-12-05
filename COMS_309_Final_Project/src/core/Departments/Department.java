@@ -23,6 +23,8 @@ public class Department {
         System.out.println("| 5. Human Resources Department                                |");
         System.out.println("| 6. Online Order Department                                   |");
         System.out.println("| 7. Receipt Verification Department                           |");
+        System.out.println("| 8. Produce Department                                        |");
+        System.out.println("| 9. Bakery Department                                         |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -39,44 +41,45 @@ public class Department {
         switch (input.toLowerCase()) {
             case "1":
             case "floral department":
-                FloralDepartment floral = FloralDepartment.getInstance();
-                floral.displayDepartmentTasks();
+                FloralDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "2":
             case "meat department":
-                MeatDepartment meat = MeatDepartment.getInstance();
-                meat.displayDepartmentTasks();
+                MeatDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "3":
             case "security department":
-                SecurityDepartment security = SecurityDepartment.getInstance();
-                security.displayDepartmentTasks();
+                SecurityDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "4":
             case "pharmacy department":
-                PharmacyDepartment pharmacy = PharmacyDepartment.getInstance();
-                pharmacy.displayDepartmentTasks();
+                PharmacyDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "5":
             case "human resources department":
-                HumanResourcesDepartment hr = HumanResourcesDepartment.getInstance();
-                hr.displayDepartmentTasks();
+                HumanResourcesDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "6":
             case "online order department":
-                OnlineOrderDepartment onlineOrder = OnlineOrderDepartment.getInstance();
-                onlineOrder.displayDepartmentTasks();
+                OnlineOrderDepartment.getInstance().displayDepartmentTasks();
                 break;
 
             case "7":
             case "receipt verification department":
-                ReceiptVerificationDepartment receiptVerification = ReceiptVerificationDepartment.getInstance();
-                receiptVerification.displayDepartmentTasks();
+                ReceiptVerificationDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "8":
+            case "produce department":
+                ProduceDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "9":
+            case "bakery department":
+                BakeryDepartment.getInstance().displayDepartmentTasks();
                 break;
 
         }
