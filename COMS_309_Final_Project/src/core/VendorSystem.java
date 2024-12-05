@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class VendorSystem {
     private Scanner in = new Scanner(System.in);
     private InventorySystem inventorySystem = InventorySystem.getInstance();
     private boolean loggedIn = false;
-    private Map<String, List<Delivery>> vendorDeliveries = new HashMap<>();
+    private List<String> vendors = new ArrayList<>();
 
 
     public boolean logIn() {
@@ -49,93 +50,60 @@ public class VendorSystem {
         
         try (BufferedReader reader = new BufferedReader(new FileReader("vendor_deliveries.csv"))) {
             String line;
-
-            reader.readLine();
-
+            
+            // Read and skip the header line
+            reader.readLine();  
+            
             boolean hasPendingDeliveries = false; 
-
+            
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-
-                if (parts.length == 2) {
+    
+                // Check if the row has the correct number of columns
+                if (parts.length == 7) {
                     String vendorName = parts[0].trim();
                     String deliveryDescription = parts[2].trim();
-
-                    hasPendingDeliveries = true;
-
-                    System.out.println("Vendor: " + vendorName + " | Delivery: " + deliveryDescription);
+                    String status = parts[6].trim();  // Status column
+    
+                    // Display only pending deliveries
+                    if (status.equalsIgnoreCase("Pending")) {
+                        hasPendingDeliveries = true;
+                        System.out.println("Vendor: " + vendorName + " | Delivery: " + deliveryDescription);
+                    }
                 }
             }
-
+            
             if (!hasPendingDeliveries) {
                 System.out.println("No pending vendor deliveries available.");
             }
-
+    
         } catch (IOException e) {
             System.err.println("Error reading the CSV file: " + e.getMessage());
         }
     }
+    
 
     ///////////////////////////////////////////////////////////////////////////////
 
-    public void displayVendors() {
-        System.out.println("Please select a vendor to review their deliveries:");
-        int index = 1;
-        for (String vendor : vendorDeliveries.keySet()) {
-            System.out.println(index++ + ". " + vendor);
-        }
-    }
-
-    public void reviewVendorDeliveries() {
-        displayVendors();
-        int vendorChoice = in.nextInt();
-        in.nextLine();
-
-        String selectedVendor = getVendorByIndex(vendorChoice);
-
-        if (selectedVendor != null) {
-            System.out.println("Delivery details for " + selectedVendor + ":");
-            List<Delivery> deliveries = vendorDeliveries.get(selectedVendor);
-            for (Delivery delivery : deliveries) {
-                System.out.println("Product: " + delivery.getProduct() +
-                        " | Quantity: " + delivery.getQuantity() +
-                        " | Delivery Time: " + delivery.getDeliveryTime());
-            }
-        } else {
-            System.out.println("Invalid vendor selection.");
-        }
-    }
-
-    private String getVendorByIndex(int index) {
-        if (index < 1 || index > vendorDeliveries.size()) {
-            return null;
-        }
-
-        int currentIndex = 1;
-        for (String vendor : vendorDeliveries.keySet()) {
-            if (currentIndex == index) {
-                return vendor;
-            }
-            currentIndex++;
-        }
-        return null;
-    }
-
     // Main function to test the system
-    public static void main(String[] args) {
-        VendorSystem system = new VendorSystem();
-        system.reviewVendorDeliveries();
-    }
+
 
     public static class Delivery {
+        private String deliveryID;
+        private String description;
         private String product;
         private int quantity;
         private String deliveryTime;
+        private String status;
 
-        public Delivery(String product, int quantity, String deliveryTime) {
+        // Constructor matching your usage
+        public Delivery(String deliveryID, String description, String product, int quantity, String deliveryTime, String status) {
+            this.deliveryID = deliveryID;
+            this.description = description;
             this.product = product;
             this.quantity = quantity;
             this.deliveryTime = deliveryTime;
+            this.status = status;
         }
 
         public String getProduct() {
@@ -149,24 +117,73 @@ public class VendorSystem {
         public String getDeliveryTime() {
             return deliveryTime;
         }
+
     }
 
     ////////////////////////////////////////////////////////////////////////
 
-    public boolean checkShipmentUponArrival() {
-        boolean isShipmentDamaged = simulateShipmentInspection();
-        
-        if (isShipmentDamaged) {
-            System.out.println("Shipment is damaged, contacting vendor.");
-            return false;
-        } else {
-            System.out.println("Shipment checked and in good condition.");
-            return true;
+    public void loadVendorsFromCSV(String fileName) {
+        vendors.clear();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            reader.readLine(); // Skip header row
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 7) {
+                    String vendorName = parts[0].trim();
+                    if (!vendors.contains(vendorName)) {
+                        vendors.add(vendorName);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the CSV file: " + e.getMessage());
         }
     }
 
+    public void displayVendors() {
+        System.out.println("Please select a vendor to inspect their shipment:");
+        for (int i = 0; i < vendors.size(); i++) {
+            System.out.println((i + 1) + ". " + vendors.get(i));
+        }
+    }
+
+    public void checkVendorShipment() {
+        loadVendorsFromCSV("vendor_deliveries.csv");
+        if (vendors.isEmpty()) {
+            System.out.println("No vendors found in the system.");
+            return;
+        }
+
+        displayVendors();
+        try {
+            int choice = in.nextInt();
+            in.nextLine(); // Clear buffer
+
+            if (choice >= 1 && choice <= vendors.size()) {
+                String selectedVendor = vendors.get(choice - 1);
+                System.out.println("Inspecting shipment for " + selectedVendor + "...");
+                if (checkShipmentUponArrival()) {
+                    System.out.println("Shipment for " + selectedVendor + " is in good condition.");
+                } else {
+                    System.out.println("Shipment for " + selectedVendor + " is damaged. Contacting vendor...");
+                }
+            } else {
+                System.out.println("Invalid selection. Please try again.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            in.nextLine(); // Clear buffer
+        }
+    }
+
+    public boolean checkShipmentUponArrival() {
+        boolean isShipmentDamaged = simulateShipmentInspection();
+        return !isShipmentDamaged;
+    }
+
     private boolean simulateShipmentInspection() {
-        return Math.random() < 0.1;
+        return Math.random() < 0.1; // 10% chance shipment is damaged
     }
 
     ///////////////////////////////////////////////////////////////////////

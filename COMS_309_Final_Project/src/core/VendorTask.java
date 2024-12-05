@@ -28,18 +28,15 @@ public class VendorTask extends Task {
                 vendorSystem.displayPendingVendorDeliveries();
                 break;
             case 4:
-                vendorSystem.reviewVendorDeliveries();
+                vendorSystem.checkVendorShipment();
                 break;
             case 5:
-                vendorSystem.checkShipmentUponArrival();
-                break;
-            case 6:
                 vendorSystem.verifyDeliveredQuantities();
                 break;
-            case 7:
+            case 6:
                 InventorySystem.getInstance().reconcileDeliveries();
                 break;
-            case 8:
+            case 7:
                 vendorSystem.sendConfirmationToVendor();
                 break;
             default:

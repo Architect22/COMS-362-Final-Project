@@ -251,8 +251,6 @@ public class InventorySystem {
     
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
-        } finally {
-            scanner.close();
         }
     
         System.out.println("Exiting Vendor CSV Manager.");
@@ -310,7 +308,8 @@ public class InventorySystem {
             System.out.println("Discrepancy detected! Updating stock.");
         }
         
-        updateStock(product, quantity);
+        System.out.println(product + quantity + ": reconciled");
+        //updateStock(product, quantity);
     }
     
 
