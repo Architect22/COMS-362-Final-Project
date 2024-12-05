@@ -22,6 +22,7 @@ public class Employee {
 	private CustomerSupportSystem supportSystem;
 	private CustomerInquiry inq;
 	private SecurityManager securityPersonnel;
+	private final TaskType TASKTYPE = TaskType.ORDER_CURBSIDE;
 
 
 	public Employee(SelfCheckoutManager schMngr,
@@ -73,6 +74,7 @@ public class Employee {
 		System.out.println("| 5. Self Checkout Assistant             |");
 		System.out.println("| 6. Customer Support                    |");
 		System.out.println("| 7. Switch Department                   |");
+		System.out.println("| 8. Handle Curbside                     |");
 		System.out.println("|----------------------------------------|");
 		System.out.print("Enter task number: ");
 		String taskNumber = in.nextLine().toLowerCase();
@@ -161,7 +163,7 @@ public class Employee {
 		steps.add("Mark the order as Picked Up.");
 		steps.add("Record the completion time and log the order as fulfilled.");
 
-		Task task = new OrderCurbsideTask("OrderFulfillmentEmployee", TaskType.ORDER_CURBSIDE, steps);
+		Task task = new OrderCurbsideTask("OrderFulfillmentEmployee", TASKTYPE, steps);
 	
 	}
 
