@@ -16,7 +16,7 @@ public class Department {
         Utility.createHeader(width, "Departments");
         System.out.println("| 1. Floral Department                                         |");
         System.out.println("| 2. Meat Department                                           |");
-        System.out.println("| 3. Pharmacy Department                                           |");
+        System.out.println("| 3. Pharmacy Department                                       |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
