@@ -28,11 +28,11 @@ public class SecurityManager {
     }
 
     public void documentIncident() {
-        System.out.print("Documenting incident... ");
+        System.out.println("Documenting incident... ");
     }
 
     public void communicateWithOtherPersonnel() {
-        System.out.print("Locating and meeting with other security personnel...");
+        System.out.println("Locating and meeting with other security personnel...");
     }
 
     public void respondToEmergency() {
