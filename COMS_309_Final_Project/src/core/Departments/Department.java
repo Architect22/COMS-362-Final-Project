@@ -1,10 +1,10 @@
 package core.Departments;
 
-import java.util.Scanner;
-
+import core.FulfillmentDepartment;
 import core.PharmacyDepartment;
 import core.SecurityDepartment;
 import core.Utility;
+import java.util.Scanner;
 
 public class Department {
     String name;
@@ -25,6 +25,7 @@ public class Department {
         System.out.println("| 7. Receipt Verification Department                           |");
         System.out.println("| 8. Produce Department                                        |");
         System.out.println("| 9. Bakery Department                                         |");
+        System.out.println("| 10. Fulfillment Department                                   |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -80,6 +81,10 @@ public class Department {
             case "9":
             case "bakery department":
                 BakeryDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "10":
+            case "fulfillment department":
+                FulfillmentDepartment.getInstance().displayDepartmentTasks();
                 break;
 
         }
