@@ -1,8 +1,9 @@
 package core.Departments;
 
-import java.util.Scanner;
-
+import core.PharmacyDepartment;
+import core.SecurityDepartment;
 import core.Utility;
+import java.util.Scanner;
 
 public class Department {
     String name;

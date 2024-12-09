@@ -19,13 +19,13 @@ public class VendorTask extends Task {
         switch (taskCode) {
             case 1:
                 vendorSystem.logIn();
-                // vendorSystem.viewPendingDeliveries();
                 break;
             case 2: 
-                vendorSystem.manageVendorDeliveries();
+                vendorSystem.displayPendingVendorDeliveries();
                 break;
             case 3:
-                vendorSystem.displayPendingVendorDeliveries();
+                vendorSystem.manageVendorDeliveries();
+
                 break;
             case 4:
                 vendorSystem.checkVendorShipment();
