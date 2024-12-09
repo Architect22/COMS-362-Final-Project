@@ -16,15 +16,16 @@ public class Department {
 
     public static void displayDepartmentDashboard() {
         Utility.createHeader(width, "Departments");
-        System.out.println("| 1. Floral Department                                         |");
-        System.out.println("| 2. Meat Department                                           |");
-        System.out.println("| 3. Security Department                                       |");
-        System.out.println("| 4. Pharmacy Department                                       |");
-        System.out.println("| 5. Human Resources Department                                |");
-        System.out.println("| 6. Online Order Department                                   |");
-        System.out.println("| 7. Receipt Verification Department                           |");
-        System.out.println("| 8. Produce Department                                        |");
-        System.out.println("| 9. Bakery Department                                         |");
+        System.out.println("| 1.  Floral Department                                         |");
+        System.out.println("| 2.  Meat Department                                           |");
+        System.out.println("| 3.  Security Department                                       |");
+        System.out.println("| 4.  Pharmacy Department                                       |");
+        System.out.println("| 5.  Human Resources Department                                |");
+        System.out.println("| 6.  Online Order Department                                   |");
+        System.out.println("| 7.  Receipt Verification Department                           |");
+        System.out.println("| 8.  Produce Department                                        |");
+        System.out.println("| 9.  Bakery Department                                         |");
+        System.out.println("| 10. Accounting Department                                     |");
         System.out.println("|--------------------------------------------------------------|");
         acceptInput();
     }
@@ -83,6 +84,8 @@ public class Department {
                 BakeryDepartment.getInstance().displayDepartmentTasks();
                 break;
 
+            case "10":
+            	AccountingDepartment.getInstance().displayDepartmentTasks();
         }
     }
 }

@@ -3,6 +3,7 @@ package core;
 import core.CustomerServiceProcess.CustomerInquiry;
 import core.CustomerServiceProcess.CustomerSupportSystem;
 import core.CustomerServiceProcess.SupportRepresentative;
+import core.Departments.AccountingDepartment;
 import core.Departments.Department;
 import core.SelfCheckoutManagerProcess.SelfCheckoutManager;
 import core.Tasks.CleanTask;
@@ -364,13 +365,15 @@ public class Employee {
 				price =  InventorySystem.getInstance().getPrice(name);
 
 				if (Float.isNaN(price))
+				{
 					System.out.printf("Error: no price for \"%s\".%n", name);
-				 else if ( InventorySystem.getInstance().getStockLevel(name) <=
+					continue;
+				}
+				else if ( InventorySystem.getInstance().getStockLevel(name) <=
 						InventorySystem.getInstance().getStockPrices().get(name))
-				 System.out.printf("Error: \"%s\" is out of stock.%n", name);
-				 else
-
-				subtotal += price;
+					System.out.printf("Error: \"%s\" is out of stock.%n", name);
+				else
+					subtotal += price;
 				break;
 
 			}
@@ -400,6 +403,7 @@ public class Employee {
 		System.out.println();
 		System.out.println("Receipt:");
 		Receipt.create(items,  InventorySystem.getInstance()).print();
+		AccountingDepartment.getInstance().addSale(subtotal);
 	}
 
 	public void handleReturn() {
@@ -420,5 +424,6 @@ public class Employee {
 		}
 		r.remove(item);
 		System.out.printf("Refund applied: $%.2f%n", price * 1.07f);
+		AccountingDepartment.getInstance().addSale(-price);
 	}
 }
