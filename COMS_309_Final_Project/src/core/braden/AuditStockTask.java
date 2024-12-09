@@ -14,6 +14,7 @@ public class AuditStockTask extends Task {
     }
 
     @Override
+    @SuppressWarnings("resource")
     public void executeTask(int taskCode) {
         if (taskCode == 1 | taskCode == 7) {
             InventorySystem.getInstance().displayInventoryDashboard();

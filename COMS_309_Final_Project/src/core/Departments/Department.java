@@ -35,6 +35,7 @@ public class Department {
     }
 
     private static void acceptInput() {
+        @SuppressWarnings("resource")
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 

@@ -59,6 +59,7 @@ public class InventoryManager extends Task {
         }
     }
 
+    @SuppressWarnings("resource")
     public void adjustReorderQuantities() {
         System.out.print("Enter the product to adjust reorder quantity: ");
         String product = new Scanner(System.in).nextLine();
@@ -68,6 +69,7 @@ public class InventoryManager extends Task {
         System.out.println("Reorder quantity for " + product + " adjusted to " + quantity);
     }
 
+    @SuppressWarnings("resource")
     public void placeOrder() {
         System.out.print("Enter the product to order: ");
         String product = new Scanner(System.in).nextLine();
@@ -76,6 +78,7 @@ public class InventoryManager extends Task {
         InventorySystem.getInstance().placeOrder(product, quantity);
     }
 
+    @SuppressWarnings("resource")
     public void checkStockDiscrepancies() {
         System.out.print("Enter product to check for discrepancies: ");
         String product = new Scanner(System.in).nextLine();
@@ -83,6 +86,7 @@ public class InventoryManager extends Task {
         checkForAlerts();
     }
 
+    @SuppressWarnings("resource")
     public void manuallyAdjustStock() {
         System.out.print("Enter product to manually adjust stock: ");
         String product = new Scanner(System.in).nextLine();

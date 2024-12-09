@@ -4,8 +4,6 @@ import core.Tasks.Task;
 import core.Tasks.TaskType;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class PriceManager extends Task {
 

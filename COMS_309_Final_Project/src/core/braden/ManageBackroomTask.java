@@ -14,6 +14,7 @@ public class ManageBackroomTask extends Task {
     }
 
     @Override
+    @SuppressWarnings("resource")
     public void executeTask(int taskCode) {
         if (taskCode == 1) {
             InventorySystem.getInstance().displayInventoryDashboard();

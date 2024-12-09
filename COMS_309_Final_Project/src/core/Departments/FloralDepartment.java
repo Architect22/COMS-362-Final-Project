@@ -32,6 +32,7 @@ public class FloralDepartment extends Department {
         Task task = new FloralTask("Floral Tasks", TaskType.FLORAL, tasks);
     }
 
+    @SuppressWarnings("resource")
     public void handleCustomerOrder() {
         Scanner inString = new Scanner(System.in);
         Scanner inInt = new Scanner(System.in);
