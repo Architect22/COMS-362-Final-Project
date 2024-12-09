@@ -9,7 +9,7 @@ public class InventorySystem {
     private Map<String, Integer> reorderQuantities = new HashMap<>();
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
-    private static final String CSV_FILE = "COMS_309_FINAL_Project/data/inventory.csv";
+    private static final String CSV_FILE = "data/inventory.csv";
     private Scanner in = new Scanner(System.in);
 
     public static InventorySystem instance;
