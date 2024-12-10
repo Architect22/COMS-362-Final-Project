@@ -1,17 +1,20 @@
 package core.Departments;
+import core.OrderTicket;
+import core.OrderTicketingSystem;
 import core.Tasks.RestaurantTask;
 import core.Tasks.Task;
 import core.Tasks.TaskType;
 import core.Utility;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class RestaurantDepartment extends Department {
     private static RestaurantDepartment instance;
+    private OrderTicketingSystem ticketingSystem;
 
     private RestaurantDepartment(String name) {
         super(name);
+        this.ticketingSystem = new OrderTicketingSystem();
     }
 
     public static RestaurantDepartment getInstance() {
@@ -69,86 +72,86 @@ public class RestaurantDepartment extends Department {
     }
 
     public void chefWorkFlow() {
-        Scanner scanner = new Scanner(System.in);
-        HashMap<String, Integer> order = new HashMap<>();
-
         System.out.println("\n--- Chef Workflow ---");
+        while(ticketingSystem.hasOrders()){
+            OrderTicket ticket = ticketingSystem.getNextTicket();
+            if (ticket != null) {
+                System.out.println("Preparing order: " + ticket);
 
-        // Step 1: Receive the order ticket
-        System.out.println("Receiving order ticket from server...");
-        System.out.print("Enter the name of the dish to prepare: ");
-        String dish = scanner.nextLine();
+                Scanner scanner = new Scanner(System.in);
 
-        // Step 2: Check ingredient availability
-        System.out.print("Are all ingredients available? (y/n): ");
-        String ingredientCheck = scanner.nextLine().toLowerCase();
-        if (ingredientCheck.equals("n")) {
-            System.out.println("Ingredient unavailable! Notifying manager and attempting to substitute or modify order.");
+                // Check if all ingredients are available
+                System.out.print("Are all ingredients available for " + ticket.getDishName() + "? (y/n): ");
+                String ingredientsAvailable = scanner.nextLine().toLowerCase();
+                if (ingredientsAvailable.equals("n")) {
+                    System.out.println("Notifying manager about missing ingredients.");
+                }
+
+                // Check if equipment is functional
+                System.out.print("Is all kitchen equipment operational? (y/n): ");
+                String equipmentCheck = scanner.nextLine().toLowerCase();
+                if (equipmentCheck.equals("n")) {
+                    System.out.println("Adapting to equipment failure...");
+                }
+
+                Utility.displayLoadingAnimationKeepTerminal(3, 300, "Preparing the dish...");
+                System.out.println("Dish prepared successfully: " + ticket.getDishName());
+
+                // Perform quality check
+                System.out.print("Did the quality check pass? (y/n): ");
+                String qualityCheck = scanner.nextLine().toLowerCase();
+                if (qualityCheck.equals("n")) {
+                    System.out.println("Re-preparing the dish...");
+                } else {
+                    System.out.println("Dish prepared successfully: " + ticket.getDishName());
+                }
+
+                System.out.println("All queued orders prepared.");
+            }
         }
 
-        // Step 3: Check equipment status
-        System.out.print("Is all kitchen equipment operational? (y/n): ");
-        String equipmentCheck = scanner.nextLine().toLowerCase();
-        if (equipmentCheck.equals("n")) {
-            System.out.println("Kitchen equipment malfunction! Adjusting preparation methods.");
-        }
 
-        // Simulate preparation time
-        Utility.displayLoadingAnimationKeepTerminal(3, 500, "Preparing the dish...");
-        System.out.println("Dish prepared successfully: " + dish);
-
-        // Step 4: Verify the quality
-        System.out.print("Did the quality check pass? (y/n): ");
-        String qualityCheck = scanner.nextLine().toLowerCase();
-        if (qualityCheck.equals("y")) {
-            System.out.println("Quality check passed. Placing order in pickup area.");
-        } else {
-            System.out.println("Quality check failed. Re-preparing the dish.");
-        }
-
-        // Step 5: Mark the ticket as complete
-        System.out.println("Order ticket for " + dish + " marked as complete.");
     }
 
     public void serverWorkFlow() {
         Scanner scanner = new Scanner(System.in);
-        boolean customerReadyToOrder = true;
-        boolean paymentSuccess = true;
+        boolean continueAddingOrders = true;
 
         System.out.println("\n--- Server Workflow ---");
 
-        // Step 1: Greet the customer
         System.out.println("Greeting customers and escorting them to their table.");
-
-        // Step 2: Provide menu and take order
         System.out.println("Providing menus and explaining today's specials.");
+
         System.out.print("Is the customer ready to order? (y/n): ");
         String readyToOrder = scanner.nextLine().toLowerCase();
         while (readyToOrder.equals("n")) {
             System.out.println("Customer is not ready to order. Server is waiting...");
             System.out.print("Is the customer ready to order? (y/n): ");
             readyToOrder = scanner.nextLine().toLowerCase();
-            customerReadyToOrder = false;
         }
-        customerReadyToOrder = true;
 
-        // Step 3: Take the customer's order
-        if (customerReadyToOrder) {
+        while (continueAddingOrders) {
             System.out.print("Enter the dish name to be ordered: ");
-            String order = scanner.nextLine();
-            System.out.print("Any special requests or dietary restrictions? (y/n): ");
-            String specialRequest = scanner.nextLine().toLowerCase();
-            if (specialRequest.equals("y")) {
-                System.out.println("Server notes the special request on the order.");
+            String dishName = scanner.nextLine();
+
+            System.out.print("Any special requests or dietary restrictions? (Enter text or press Enter to skip): ");
+            String specialRequest = scanner.nextLine();
+
+            OrderTicket ticket = new OrderTicket(dishName, specialRequest);
+            ticketingSystem.submitTicket(ticket);
+
+            System.out.println("Order for " + ticket.getDishName() + " has been submitted to the kitchen.");
+            System.out.print("Would you like to add another order for this party? (y/n): ");
+            String addMoreOrders = scanner.nextLine().toLowerCase();
+            if (!addMoreOrders.equals("y")) {
+                continueAddingOrders = false;
             }
-            System.out.println("Order for " + order + " has been submitted to the kitchen.");
         }
 
-        // Step 4: Pick up and serve the order
+        System.out.println("Order has been submitted to the kitchen.");
         Utility.displayLoadingAnimationKeepTerminal(2, 500, "Waiting for kitchen to complete the order...");
         System.out.println("Order is ready for pickup. Delivering to the customer.");
 
-        // Step 5: Check in with the customer
         System.out.print("Is the customer satisfied with the order? (y/n): ");
         String customerSatisfaction = scanner.nextLine().toLowerCase();
         if (customerSatisfaction.equals("n")) {
@@ -157,16 +160,13 @@ public class RestaurantDepartment extends Department {
             System.out.println("Customer is satisfied with the dish.");
         }
 
-        // Step 6: Payment and checkout
         System.out.println("Providing the bill to the customer.");
         System.out.print("Did the payment go through successfully? (y/n): ");
         String paymentCheck = scanner.nextLine().toLowerCase();
         if (paymentCheck.equals("n")) {
             System.out.println("Payment issue occurred. Addressing the issue discreetly with the customer.");
-            paymentSuccess = false;
         }
-
-        if (paymentSuccess) {
+        else {
             System.out.println("Payment processed successfully. Thanking the customer for dining.");
         }
     }
