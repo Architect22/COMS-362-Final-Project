@@ -1,10 +1,9 @@
 package core.Departments;
 
-import java.util.Scanner;
-
 import core.PharmacyDepartment;
 import core.SecurityDepartment;
 import core.Utility;
+import java.util.Scanner;
 
 public class Department {
     String name;
@@ -16,6 +15,7 @@ public class Department {
 
     public static void displayDepartmentDashboard() {
         Utility.createHeader(width, "Departments");
+
         System.out.println("| 1.  Floral Department                                         |");
         System.out.println("| 2.  Meat Department                                           |");
         System.out.println("| 3.  Security Department                                       |");
@@ -26,7 +26,8 @@ public class Department {
         System.out.println("| 8.  Produce Department                                        |");
         System.out.println("| 9.  Bakery Department                                         |");
         System.out.println("| 10. Accounting Department                                     |");
-        System.out.println("|--------------------------------------------------------------|");
+        System.out.println("| 11. Restaurant Department                                     |");
+        System.out.println("|---------------------------------------------------------------|");
         acceptInput();
     }
 
@@ -83,9 +84,12 @@ public class Department {
             case "bakery department":
                 BakeryDepartment.getInstance().displayDepartmentTasks();
                 break;
-
             case "10":
             	AccountingDepartment.getInstance().displayDepartmentTasks();
+            case "11":
+            case "restaurant department":
+                RestaurantDepartment.getInstance().promptUserForDepartmentTask();
+                break;
         }
     }
 }

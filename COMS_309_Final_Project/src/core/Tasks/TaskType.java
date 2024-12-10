@@ -12,5 +12,6 @@ public enum TaskType {
     ONLINE_ORDER,
     RECEIPT_VERIFICATION,
     BAKERY,
-    PRODUCE
+    PRODUCE,
+    RESTAURANT
 }
