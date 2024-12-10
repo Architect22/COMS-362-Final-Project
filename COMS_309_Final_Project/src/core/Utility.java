@@ -48,4 +48,24 @@ public class Utility {
             }
         }
     }
+    
+    public static void displayLoadingAnimationKeepTerminal(int loops, long frameDuration, String loadingMessage) {
+        System.out.println();
+        for (int i = 0; i < loops; ++i) {
+            try {
+                System.out.print("\r" + loadingMessage + " |");
+                Thread.sleep(frameDuration);
+                System.out.print("\r" + loadingMessage + " /");
+                Thread.sleep(frameDuration);
+                System.out.print("\r" + loadingMessage + " -");
+                Thread.sleep(frameDuration);
+                System.out.print("\r" + loadingMessage + " \\");
+                Thread.sleep(frameDuration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(); 
+        System.out.println();
+    }
 }

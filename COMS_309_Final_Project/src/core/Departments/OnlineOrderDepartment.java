@@ -32,6 +32,7 @@ public class OnlineOrderDepartment extends Department {
     }
 
     public void prepareAndDeliverOrder() {
+        @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Integer> order = new HashMap<>();
         boolean addingItems = true;

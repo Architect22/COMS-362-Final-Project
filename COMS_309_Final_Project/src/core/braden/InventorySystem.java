@@ -9,7 +9,7 @@ public class InventorySystem {
     private Map<String, Integer> reorderQuantities = new HashMap<>();
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
-    private static final String CSV_FILE = "inventory.csv";
+    private static final String CSV_FILE = "data/inventory.csv";
     private Scanner in = new Scanner(System.in);
 
     public static InventorySystem instance;
@@ -29,7 +29,6 @@ public class InventorySystem {
         try (BufferedReader reader = new BufferedReader(new FileReader(CSV_FILE))) {
             String line;
             // Skip the header row
-            reader.readLine();
 
             // Read the rest of the lines
             while ((line = reader.readLine()) != null) {

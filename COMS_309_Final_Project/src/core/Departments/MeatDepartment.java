@@ -28,6 +28,7 @@ public class MeatDepartment extends Department {
         handleCustomerOrder();
     }
 
+    @SuppressWarnings("resource")
     private void handleCustomerOrder() {
         Scanner inString = new Scanner(System.in);
         Scanner inFloat = new Scanner(System.in);

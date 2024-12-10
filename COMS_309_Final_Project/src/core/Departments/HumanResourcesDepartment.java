@@ -148,6 +148,7 @@ public class HumanResourcesDepartment extends Department
 			pay += overtimePay;
 			System.out.printf("Total gross pay: $%.2f%n", pay);
 		}
+		AccountingDepartment.getInstance().addSalary(pay);
 		float tax = pay * employee.getTaxWithholding();
 		System.out.printf("Income tax withheld: -$%.2f%nNet pay: $%.2f%n", tax, pay - tax);
 	}

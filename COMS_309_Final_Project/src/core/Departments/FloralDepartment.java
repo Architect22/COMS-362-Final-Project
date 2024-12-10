@@ -32,6 +32,7 @@ public class FloralDepartment extends Department {
         Task task = new FloralTask("Floral Tasks", TaskType.FLORAL, tasks);
     }
 
+    @SuppressWarnings("resource")
     public void handleCustomerOrder() {
         Scanner inString = new Scanner(System.in);
         Scanner inInt = new Scanner(System.in);
@@ -47,6 +48,8 @@ public class FloralDepartment extends Department {
                 String response = inString.nextLine().toLowerCase();
                 if (response.equals("y")) {
                     continue;
+                } else {
+                    flower = "";
                 }
             } else {
                 System.out.print("Enter the number of this flower in display: ");
