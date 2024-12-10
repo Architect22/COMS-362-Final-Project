@@ -27,6 +27,8 @@ public class Department {
         System.out.println("| 9.  Bakery Department                                         |");
         System.out.println("| 10. Accounting Department                                     |");
         System.out.println("| 11. Restaurant Department                                     |");
+        System.out.println("| 12. Wine and Spirits Department                                     |");
+        System.out.println("| 13. Frozen and Dairy Department                                     |");
         System.out.println("|---------------------------------------------------------------|");
         acceptInput();
     }
@@ -89,6 +91,14 @@ public class Department {
             case "11":
             case "restaurant department":
                 RestaurantDepartment.getInstance().promptUserForDepartmentTask();
+                break;
+            case "12":
+            case "wine and spirits department":
+                WineAndSpiritsDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "13":
+            case "frozen and dairy department":
+                FrozenDepartment.getInstance().displayDepartmentTasks();
                 break;
         }
     }
