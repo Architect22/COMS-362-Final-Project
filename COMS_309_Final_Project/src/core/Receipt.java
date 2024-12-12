@@ -2,6 +2,8 @@ package core;
 
 import core.braden.InventorySystem;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,10 +21,16 @@ public class Receipt
 		return receipts.get(id);
 	}
 	
+	public static Collection<Receipt> getAll()
+	{
+		return Collections.unmodifiableCollection(receipts.values());
+	}
+	
 	private static Map<Integer, Receipt> receipts = new HashMap<>();
 	
 	private static int nextRid = 0;
 	private int rid;
+	private long time;
 	
 	private Map<String, Integer> items;
 	private Map<String, Float> prices;
@@ -30,6 +38,7 @@ public class Receipt
 	private Receipt(Map<String, Integer> items, InventorySystem inventory)
 	{
 		this.rid = nextRid++;
+		this.time = System.currentTimeMillis();
 		this.items = new HashMap<>(items);
 		this.prices = new HashMap<>();
 		for (String name : items.keySet())
@@ -39,6 +48,16 @@ public class Receipt
 	public float getPriceFor(String item)
 	{
 		return prices.getOrDefault(item, Float.NaN);
+	}
+	
+	public int getCountOf(String item)
+	{
+		return items.getOrDefault(item, 0);
+	}
+	
+	public long getTimestamp()
+	{
+		return time;
 	}
 	
 	public void remove(String item)

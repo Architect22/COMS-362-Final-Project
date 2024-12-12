@@ -16,17 +16,22 @@ public class Department {
 
     public static void displayDepartmentDashboard() {
         Utility.createHeader(width, "Departments");
-        System.out.println("| 1. Floral Department                                         |");
-        System.out.println("| 2. Meat Department                                           |");
-        System.out.println("| 3. Security Department                                       |");
-        System.out.println("| 4. Pharmacy Department                                       |");
-        System.out.println("| 5. Human Resources Department                                |");
-        System.out.println("| 6. Online Order Department                                   |");
-        System.out.println("| 7. Receipt Verification Department                           |");
-        System.out.println("| 8. Produce Department                                        |");
-        System.out.println("| 9. Bakery Department                                         |");
-        System.out.println("| 10. Fulfillment Department                                   |");
-        System.out.println("|--------------------------------------------------------------|");
+
+        System.out.println("| 1.  Floral Department                                         |");
+        System.out.println("| 2.  Meat Department                                           |");
+        System.out.println("| 3.  Security Department                                       |");
+        System.out.println("| 4.  Pharmacy Department                                       |");
+        System.out.println("| 5.  Human Resources Department                                |");
+        System.out.println("| 6.  Online Order Department                                   |");
+        System.out.println("| 7.  Receipt Verification Department                           |");
+        System.out.println("| 8.  Produce Department                                        |");
+        System.out.println("| 9.  Bakery Department                                         |");
+        System.out.println("| 10. Accounting Department                                     |");
+        System.out.println("| 11. Restaurant Department                                     |");
+        System.out.println("| 12. Wine and Spirits Department                               |");
+        System.out.println("| 13. Frozen and Dairy Department                               |");
+        System.out.println("| 14. Fulfillment Department                                    |");
+        System.out.println("|---------------------------------------------------------------|");
         acceptInput();
     }
 
@@ -36,6 +41,7 @@ public class Department {
     }
 
     private static void acceptInput() {
+        @SuppressWarnings("resource")
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
 
@@ -83,10 +89,25 @@ public class Department {
                 BakeryDepartment.getInstance().displayDepartmentTasks();
                 break;
             case "10":
+            case "accounting department":
+            	AccountingDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "11":
+            case "restaurant department":
+                RestaurantDepartment.getInstance().promptUserForDepartmentTask();
+                break;
+            case "12":
+            case "wine and spirits department":
+                WineAndSpiritsDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "13":
+            case "frozen and dairy department":
+                FrozenDepartment.getInstance().displayDepartmentTasks();
+                break;
+            case "14":
             case "fulfillment department":
                 FulfillmentDepartment.getInstance().displayDepartmentTasks();
                 break;
-
         }
     }
 }

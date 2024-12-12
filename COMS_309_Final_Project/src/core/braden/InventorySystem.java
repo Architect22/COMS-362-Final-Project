@@ -9,7 +9,7 @@ public class InventorySystem {
     private Map<String, Integer> reorderQuantities = new HashMap<>();
     private Map<String, Integer> salesForecast = new HashMap<>();
     private boolean systemStatus = true;
-    private static final String CSV_FILE = "COMS_309_FINAL_Project/data/inventory.csv";
+    private static final String CSV_FILE = "data/inventory.csv";
     private Scanner in = new Scanner(System.in);
 
     public static InventorySystem instance;
@@ -210,4 +210,152 @@ public class InventorySystem {
         System.out.println("Generating report of price changes...");
         System.out.println("Price changes report sent to manager's email.");
     }
+
+    public void sendVendorDetails() {
+        Scanner scanner = new Scanner(System.in);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vendor_deliveries.csv", true))) {
+            // Check if the CSV file is empty; if so, write a header.
+            if (new java.io.File("vendor_deliveries.csv").length() == 0) {
+                writer.write("Vendor,DeliveryID,Description,Product,Quantity,DeliveryTime,Status\n");
+            }
+    
+            while (true) {
+                System.out.println("Enter Vendor Name (or type 'exit' to finish): ");
+                String vendorName = scanner.nextLine();
+                if (vendorName.equalsIgnoreCase("exit")) {
+                    break;
+                }
+    
+                System.out.println("Enter Delivery ID: ");
+                String deliveryID = scanner.nextLine();
+    
+                System.out.println("Enter Delivery Description: ");
+                String deliveryDescription = scanner.nextLine();
+    
+                System.out.println("Enter Product Name: ");
+                String product = scanner.nextLine();
+    
+                System.out.println("Enter Quantity: ");
+                int quantity = Integer.parseInt(scanner.nextLine());
+    
+                System.out.println("Enter Delivery Time (YYYY-MM-DD HH:MM:SS): ");
+                String deliveryTime = scanner.nextLine();
+    
+                String status = "Pending"; // Default status is "Pending"
+    
+                // Append the new vendor entry to the CSV file.
+                writer.write(vendorName + "," + deliveryID + "," + deliveryDescription + "," + product + "," + quantity + "," + deliveryTime + "," + status + "\n");
+                System.out.println("Vendor and delivery details added to CSV.");
+            }
+    
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
+        }
+    
+        System.out.println("Exiting Vendor CSV Manager.");
+    }
+    
+
+    public void reviewPendingDeliveries() {
+        System.out.println("Reviewing pending deliveries...");
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("vendor_deliveries.csv"))) {
+            String line;
+            
+            reader.readLine(); // Skip the header row
+            
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                
+                if (parts.length == 7) {
+                    String vendorName = parts[0].trim();
+                    String deliveryID = parts[1].trim();
+                    String deliveryDescription = parts[2].trim();
+                    String product = parts[3].trim();
+                    int quantity = Integer.parseInt(parts[4].trim());
+                    String deliveryTime = parts[5].trim();
+                    String status = parts[6].trim();
+                    
+                    // Print delivery info or add it to a collection
+                    System.out.println("Vendor: " + vendorName + " | Delivery ID: " + deliveryID + 
+                                       " | Product: " + product + " | Quantity: " + quantity + 
+                                       " | Time: " + deliveryTime + " | Status: " + status);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the CSV file: " + e.getMessage());
+        }
+    }
+    
+
+    public void reconcileDeliveries() {
+        System.out.println("Reconciling delivered quantities...");
+        
+        // Logic to verify deliveries
+        System.out.print("Enter the product to reconcile: ");
+        String product = in.nextLine();
+        
+        System.out.print("Enter the received quantity: ");
+        int quantity = in.nextInt();
+        in.nextLine(); // Consume newline character
+        
+        // Here, you would get the current stock level from a database or inventory system
+        int stockLevel = getStockLevel(product);
+        
+        // Check discrepancies
+        if (quantity != stockLevel) {
+            System.out.println("Discrepancy detected! Updating stock.");
+        }
+        
+        System.out.println(product + quantity + ": reconciled");
+        //updateStock(product, quantity);
+    }
+    
+
+    public void approveOrRejectDeliveries() {
+        System.out.println("Approving or rejecting deliveries...");
+        System.out.print("Enter the Delivery ID to review: ");
+        String deliveryID = in.nextLine();
+        
+        System.out.print("Approve this delivery? (y/n): ");
+        String response = in.nextLine();
+        
+        try {
+            // Read the CSV file and update status of the relevant delivery
+            File inputFile = new File("vendor_deliveries.csv");
+            File tempFile = new File("temp_vendor_deliveries.csv");
+    
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+    
+            String line;
+            reader.readLine(); // Skip the header line
+    
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 7 && parts[1].equals(deliveryID)) {
+                    if (response.equalsIgnoreCase("y")) {
+                        parts[6] = "Approved"; // Update status to "Approved"
+                    } else {
+                        parts[6] = "Rejected"; // Update status to "Rejected"
+                    }
+                }
+    
+                writer.write(String.join(",", parts) + "\n");
+            }
+    
+            reader.close();
+            writer.close();
+    
+            // Delete original file and rename the temporary file to the original
+            if (inputFile.delete()) {
+                tempFile.renameTo(inputFile);
+            }
+    
+            System.out.println("Delivery " + (response.equalsIgnoreCase("y") ? "approved." : "rejected.") + " Updated in CSV.");
+        } catch (IOException e) {
+            System.err.println("Error updating the CSV file: " + e.getMessage());
+        }
+    }
+    
 }

@@ -1,7 +1,6 @@
 package core.Tasks;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import core.Utility;
@@ -38,6 +37,7 @@ public class Task {
 
     private void userInput() {
         boolean loop = true;
+        @SuppressWarnings("resource")
         Scanner in = new Scanner(System.in); // don't close otherwise loop scanner breaks in storefront class!
         while (loop) {
             System.out.println("Please enter the number of the step you would like to complete (enter -1 to quit): ");
