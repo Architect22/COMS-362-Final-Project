@@ -248,7 +248,7 @@ public class VendorSystem {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Vendor Delivery Management:");
-        System.out.println("1. Review Pending Deliveries");
+        System.out.println("1. Review All Deliveries");
         System.out.println("2. Reconcile Delivered Quantities");
         System.out.println("3. Approve or Reject Deliveries");
         System.out.println("4. Send Vendor Details");
@@ -259,7 +259,7 @@ public class VendorSystem {
 
         switch (option) {
             case 1:
-                invSystem.reviewPendingDeliveries();
+                invSystem.reviewAllDeliveries();
                 break;
             case 2:
                 invSystem.reconcileDeliveries();
